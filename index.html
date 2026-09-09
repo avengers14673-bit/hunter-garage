@@ -1,361 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hunter Garage</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hunter Garage</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 50% 30%, #123052 0%, #07111d 45%, #020509 100%);
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+:root{
+  --blue:#168cff;
+  --deep:#02070d;
+  --glass:rgba(255,255,255,.07);
+}
 
-    .screen {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 25px;
-    }
+body{
+  min-height:100vh;
+  overflow:hidden;
+  background:#02070d;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
 
-    .welcome {
-      width: 100%;
-      max-width: 430px;
-      text-align: center;
-      animation: appear 1.2s ease;
-    }
+/* ================= WELCOME ================= */
 
-    .logo {
-      font-size: 14px;
-      letter-spacing: 5px;
-      color: #9ecbff;
-      margin-bottom: 30px;
-    }
+#welcome{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:
+    radial-gradient(circle at 50% 35%,#12365a 0%,#061321 42%,#02060b 78%);
+}
 
-    h1 {
-      font-size: clamp(38px, 11vw, 64px);
-      letter-spacing: 3px;
-      line-height: 0.95;
-      margin-bottom: 15px;
-    }
+.welcome-box{
+  width:min(430px,100%);
+  text-align:center;
+}
 
-    .subtitle {
-      color: #9caabd;
-      letter-spacing: 2px;
-      font-size: 12px;
-      margin-bottom: 45px;
-    }
+.small-title{
+  color:#72bfff;
+  letter-spacing:7px;
+  font-size:12px;
+  margin-bottom:24px;
+}
 
-    input {
-      width: 100%;
-      padding: 18px 20px;
-      border-radius: 12px;
-      border: 1px solid #31506e;
-      background: rgba(255,255,255,0.06);
-      color: white;
-      outline: none;
-      text-align: center;
-      font-size: 17px;
-      margin-bottom: 15px;
-    }
+.welcome-box h1{
+  font-size:clamp(48px,14vw,76px);
+  line-height:.88;
+  letter-spacing:-2px;
+  font-weight:800;
+}
 
-    input:focus {
-      border-color: #69b7ff;
-      box-shadow: 0 0 25px rgba(50,150,255,0.2);
-    }
+.tagline{
+  margin:25px 0 42px;
+  color:#9aaabd;
+  letter-spacing:3px;
+  font-size:11px;
+}
 
-    button {
-      width: 100%;
-      padding: 17px;
-      border: 0;
-      border-radius: 12px;
-      background: linear-gradient(90deg, #174b78, #2189d5);
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 3px;
-      cursor: pointer;
-      transition: 0.25s;
-    }
+input{
+  width:100%;
+  height:62px;
+  border:1px solid #294866;
+  border-radius:14px;
+  background:rgba(255,255,255,.055);
+  color:#fff;
+  text-align:center;
+  font-size:17px;
+  outline:none;
+}
 
-    button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 30px rgba(40,150,255,0.35);
-    }
+input:focus{
+  border-color:#319fff;
+  box-shadow:0 0 30px rgba(20,140,255,.2);
+}
 
-    .garage {
-      display: none;
-      min-height: 100vh;
-      position: relative;
-      text-align: center;
-      padding: 35px 20px;
-      background:
-        linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.8)),
-        repeating-linear-gradient(
-          90deg,
-          #101820 0px,
-          #101820 45px,
-          #0b1117 46px,
-          #0b1117 90px
-        );
-    }
+.enter{
+  margin-top:14px;
+  width:100%;
+  height:62px;
+  border:0;
+  border-radius:14px;
+  color:#fff;
+  font-weight:bold;
+  letter-spacing:4px;
+  background:linear-gradient(100deg,#075292,#149cff);
+  box-shadow:0 12px 40px rgba(0,125,255,.25);
+}
 
-    .garage.active {
-      display: block;
-      animation: garageOpen 1s ease;
-    }
+/* ================= GARAGE ================= */
 
-    .garage-title {
-      font-size: 14px;
-      letter-spacing: 4px;
-      color: #80c7ff;
-    }
+#garage{
+  display:none;
+  position:relative;
+  min-height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(25,115,180,.16),transparent 35%),
+    linear-gradient(#050b12,#020509);
+}
 
-    .name {
-      font-size: clamp(30px, 9vw, 52px);
-      font-weight: 800;
-      letter-spacing: 3px;
-      margin-top: 8px;
-    }
+#garage.show{
+  display:block;
+  animation:garageIn 1.2s ease;
+}
 
-    .bike {
-      margin: 11vh auto 30px;
-      width: min(90vw, 500px);
-      height: 210px;
-      position: relative;
-      filter: drop-shadow(0 20px 25px rgba(0,0,0,.8));
-      transition: .15s;
-    }
+@keyframes garageIn{
+  from{opacity:0;transform:scale(1.05)}
+  to{opacity:1;transform:scale(1)}
+}
 
-    /* Stylized Hunter-like bike */
-    .tank {
-      position: absolute;
-      width: 230px;
-      height: 90px;
-      background: linear-gradient(145deg, #244e70, #071522);
-      border: 2px solid #6aa7d4;
-      border-radius: 55% 45% 35% 35%;
-      left: 50%;
-      top: 35px;
-      transform: translateX(-50%);
-      box-shadow: inset -15px -10px 25px #000;
-    }
+/* ceiling lights */
 
-    .seat {
-      position: absolute;
-      width: 145px;
-      height: 35px;
-      background: #090b0d;
-      border-radius: 30px;
-      left: 54%;
-      top: 25px;
-    }
+.ceiling{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:115px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 75px,
+      rgba(255,255,255,.04) 76px 78px
+    );
+}
 
-    .wheel {
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      border: 9px solid #111;
-      border-radius: 50%;
-      bottom: 15px;
-      box-shadow: inset 0 0 0 3px #777;
-    }
+.ceiling:after{
+  content:"";
+  position:absolute;
+  left:10%;
+  right:10%;
+  top:32px;
+  height:3px;
+  background:linear-gradient(90deg,
+    transparent,
+    #d8efff,
+    transparent
+  );
+  box-shadow:
+    0 0 20px #8fd2ff,
+    0 0 50px rgba(50,160,255,.7);
+}
 
-    .wheel::after {
-      content: "";
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: #aaa;
-      border-radius: 50%;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
+/* garage walls */
 
-    .front-wheel {
-      right: 5%;
-    }
+.wall-lines{
+  position:absolute;
+  inset:115px 0 0;
+  opacity:.4;
+  background:
+    linear-gradient(90deg,
+      transparent 0 16%,
+      rgba(255,255,255,.035) 16.2%,
+      transparent 16.4% 33%,
+      rgba(255,255,255,.035) 33.2%,
+      transparent 33.4% 66%,
+      rgba(255,255,255,.035) 66.2%,
+      transparent 66.4% 83%,
+      rgba(255,255,255,.035) 83.2%,
+      transparent 83.4%
+    );
+}
 
-    .back-wheel {
-      left: 5%;
-    }
+/* top text */
 
-    .frame {
-      position: absolute;
-      width: 190px;
-      height: 8px;
-      background: #777;
-      left: 50%;
-      top: 105px;
-      transform: translateX(-50%) rotate(8deg);
-      border-radius: 10px;
-    }
+.greeting{
+  position:absolute;
+  top:42px;
+  left:0;
+  right:0;
+  text-align:center;
+  z-index:5;
+}
 
-    .handle {
-      position: absolute;
-      width: 80px;
-      height: 8px;
-      background: #777;
-      right: 12%;
-      top: 35px;
-      transform: rotate(-12deg);
-      border-radius: 10px;
-    }
+.greeting span{
+  color:#62b9ff;
+  font-size:10px;
+  letter-spacing:5px;
+}
 
-    .light {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      background: #dff5ff;
-      border-radius: 50%;
-      right: 6%;
-      top: 52px;
-      box-shadow: 0 0 35px 12px rgba(120,210,255,.7);
-    }
+.greeting h2{
+  margin-top:7px;
+  font-size:clamp(27px,8vw,44px);
+  letter-spacing:2px;
+}
 
-    .exhaust {
-      position: absolute;
-      width: 100px;
-      height: 14px;
-      background: linear-gradient(90deg,#444,#aaa,#333);
-      left: 24%;
-      top: 135px;
-      border-radius: 10px;
-      transform: rotate(4deg);
-    }
+/* floor */
 
-    .accelerator {
-      width: 220px;
-      margin: auto;
-      border-radius: 50px;
-      padding: 20px;
-      font-size: 15px;
-      background: linear-gradient(90deg,#102d48,#1266a0);
-      box-shadow: 0 0 25px rgba(30,140,230,.2);
-      user-select: none;
-      -webkit-user-select: none;
-    }
+.floor{
+  position:absolute;
+  left:-15%;
+  width:130%;
+  bottom:-15%;
+  height:48%;
+  transform:perspective(450px) rotateX(58deg);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 70px,
+      rgba(255,255,255,.035) 71px 73px
+    ),
+    linear-gradient(#101820,#030507);
+  border-top:1px solid rgba(255,255,255,.08);
+}
 
-    .accelerator:active {
-      transform: scale(.94);
-      box-shadow: 0 0 50px rgba(60,180,255,.7);
-    }
+.floor:after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:20%;
+  right:20%;
+  height:3px;
+  background:#168cff;
+  box-shadow:0 0 25px #168cff;
+}
 
-    .rpm {
-      margin-top: 18px;
-      color: #6d8193;
-      font-size: 11px;
-      letter-spacing: 4px;
-    }
+/* ================= BIKE ================= */
 
-    .revving .bike {
-      transform: scale(1.04) translateY(-3px);
-    }
+.bike-stage{
+  position:absolute;
+  z-index:4;
+  top:27%;
+  left:50%;
+  width:min(94vw,650px);
+  height:350px;
+  transform:translateX(-50%);
+  transition:.18s ease;
+}
 
-    .revving .light {
-      box-shadow: 0 0 55px 20px rgba(120,210,255,.95);
-    }
+.bike-shadow{
+  position:absolute;
+  width:78%;
+  height:30px;
+  left:11%;
+  bottom:38px;
+  background:#000;
+  border-radius:50%;
+  filter:blur(13px);
+  opacity:.9;
+}
 
-    @keyframes appear {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* wheels */
 
-    @keyframes garageOpen {
-      from {
-        opacity: 0;
-        transform: scale(1.08);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+.wheel{
+  position:absolute;
+  bottom:55px;
+  width:132px;
+  height:132px;
+  border-radius:50%;
+  border:12px solid #080b0e;
+  background:
+    radial-gradient(circle,#777 0 5px,#171b20 6px 19px,
+    transparent 20px),
+    repeating-conic-gradient(#4b5055 0 5deg,#111 5deg 15deg);
+  box-shadow:
+    0 0 0 2px #777,
+    inset 0 0 0 7px #050608,
+    0 0 30px rgba(0,0,0,.8);
+}
 
-    @media (max-height: 650px) {
-      .bike {
-        margin-top: 5vh;
-      }
-    }
-  </style>
+.wheel:after{
+  content:"";
+  position:absolute;
+  inset:30px;
+  border-radius:50%;
+  border:3px solid #888;
+}
+
+.back-wheel{left:8%}
+.front-wheel{right:8%}
+
+/* fuel tank */
+
+.tank{
+  position:absolute;
+  left:25%;
+  top:88px;
+  width:50%;
+  height:120px;
+  border-radius:48% 45% 35% 40%;
+  transform:rotate(-3deg);
+  background:
+    linear-gradient(145deg,#377db1 0%,#123c61 35%,#061321 75%);
+  border:2px solid #71b9ef;
+  box-shadow:
+    inset -25px -18px 35px #02060b,
+    inset 12px 10px 20px rgba(255,255,255,.1),
+    0 15px 40px rgba(0,0,0,.7);
+}
+
+.tank:before{
+  content:"ROYAL ENFIELD";
+  position:absolute;
+  top:38px;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-weight:bold;
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.tank:after{
+  content:"";
+  position:absolute;
+  left:47%;
+  bottom:-22px;
+  width:45%;
+  height:42px;
+  background:#111820;
+  border-radius:50%;
+}
+
+/* seat */
+
+.seat{
+  position:absolute;
+  left:45%;
+  top:62px;
+  width:28%;
+  height:42px;
+  border-radius:25px 35px 8px 8px;
+  background:linear-gradient(#24282c,#07090b);
+  box-shadow:inset 0 5px 4px rgba(255,255,255,.08);
+}
+
+/* frame */
+
+.frame{
+  position:absolute;
+  left:28%;
+  top:195px;
+  width:43%;
+  height:9px;
+  background:#72777b;
+  transform:rotate(8deg);
+  box-shadow:0 0 8px #000;
+}
+
+.frame:after{
+  content:"";
+  position:absolute;
+  width:9px;
+  height:100px;
+  right:5px;
+  top:-5px;
+  background:#666;
+  transform:rotate(-23deg);
+}
+
+/* engine */
+
+.engine{
+  position:absolute;
+  left:40%;
+  top:180px;
+  width:115px;
+  height:78px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#555,#111);
+  border:2px solid #777;
+  box-shadow:inset -10px -10px 20px #050505;
+}
+
+.engine:after{
+  content:"350";
+  position:absolute;
+  left:50%;
+  top:28px;
+  transform:translateX(-50%);
+  font-weight:bold;
+  color:#aaa;
+  letter-spacing:2px;
+}
+
+/* exhaust */
+
+.exhaust{
+  position:absolute;
+  left:24%;
+  top:242px;
+  width:37%;
+  height:17px;
+  border-radius:15px;
+  background:linear-gradient(90deg,#17191b,#858585,#252525);
+  transform:rotate(5deg);
+  box-shadow:0 7px 10px #000;
+}
+
+/* front fork */
+
+.fork{
+  position:absolute;
+  right:17%;
+  top:135px;
+  width:9px;
+  height:120px;
+  background:linear-gradient(90deg,#777,#ddd,#555);
+  transform:rotate(-10deg);
+}
+
+/* handlebar */
+
+.handlebar{
+  position:absolute;
+  right:13%;
+  top:105px;
+  width:100px;
+  height:8px;
+  border-radius:10px;
+  background:#777;
+  transform:rotate(-8deg);
+}
+
+/* headlight */
+
+.headlight{
+  position:absolute;
+  right:8%;
+  top:119px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:#eaf8ff;
+  border:5px solid #444;
+  box-shadow:
+    0 0 20px #fff,
+    0 0 60px #36aaff,
+    0 0 100px rgba(30,150,255,.5);
+}
+
+/* blue accent */
+
+.accent{
+  position:absolute;
+  left:27%;
+  top:185px;
+  width:35px;
+  height:5px;
+  background:#168cff;
+  box-shadow:0 0 12px #168cff;
+}
+
+/* ================= CONTROL ================= */
+
+.controls{
+  position:absolute;
+  z-index:10;
+  bottom:42px;
+  left:0;
+  right:0;
+  text-align:center;
+}
+
+.accelerate{
+  width:230px;
+  height:62px;
+  border:1px solid #3faaff;
+  border-radius:50px;
+  background:linear-gradient(100deg,#07385e,#118ce4);
+  color:#fff;
+  font-weight:bold;
+  letter-spacing:3px;
+  font-size:14px;
+  box-shadow:0 0 30px rgba(20,145,255,.28);
+  touch-action:none;
+}
+
+.accelerate:active{
+  transform:scale(.94);
+}
+
+.rpm{
+  margin-top:12px;
+  font-size:10px;
+  letter-spacing:4px;
+  color:#7f91a3;
+}
+
+/* revving */
+
+.revving .bike-stage{
+  transform:translateX(-50%) scale(1.035) translateY(-3px);
+}
+
+.revving .engine{
+  animation:engineShake .055s infinite;
+}
+
+.revving .headlight{
+  box-shadow:
+    0 0 30px #fff,
+    0 0 80px #36aaff,
+    0 0 130px #168cff;
+}
+
+@keyframes engineShake{
+  0%{transform:translate(0)}
+  50%{transform:translate(2px,-1px)}
+  100%{transform:translate(-2px,1px)}
+}
+
+/* exhaust smoke */
+
+.smoke{
+  position:absolute;
+  z-index:3;
+  left:18%;
+  top:235px;
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:rgba(180,200,210,.08);
+  filter:blur(8px);
+  opacity:0;
+}
+
+.revving .smoke{
+  opacity:1;
+  animation:smoke 1s infinite;
+}
+
+@keyframes smoke{
+  0%{transform:translate(0,0) scale(.5);opacity:.1}
+  100%{transform:translate(-45px,-45px) scale(2);opacity:0}
+}
+
+@media(max-width:600px){
+  .bike-stage{
+    top:30%;
+    height:310px;
+  }
+
+  .wheel{
+    width:105px;
+    height:105px;
+    bottom:55px;
+  }
+
+  .tank{
+    top:82px;
+  }
+
+  .controls{
+    bottom:35px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- WELCOME SCREEN -->
-  <section class="screen" id="welcomeScreen">
-    <div class="welcome">
-      <div class="logo">HUNTER 350</div>
+<!-- WELCOME -->
 
-      <h1>YOUR<br>GARAGE</h1>
+<section id="welcome">
+  <div class="welcome-box">
 
-      <div class="subtitle">
-        ENTER YOUR NAME TO ENTER
-      </div>
+    <div class="small-title">HUNTER 350</div>
 
-      <input
-        id="nameInput"
-        type="text"
-        maxlength="18"
-        placeholder="ENTER YOUR NAME"
-        autocomplete="off"
-      >
+    <h1>YOUR<br>GARAGE</h1>
 
-      <button onclick="enterGarage()">
-        ENTER GARAGE
-      </button>
-    </div>
-  </section>
-
-
-  <!-- GARAGE SCREEN -->
-  <section class="garage" id="garageScreen">
-
-    <div class="garage-title">
-      WELCOME TO
+    <div class="tagline">
+      ENTER YOUR NAME TO ENTER
     </div>
 
-    <div class="name" id="userName">
-      RIDER
-    </div>
+    <input
+      id="name"
+      maxlength="18"
+      autocomplete="off"
+      placeholder="ENTER YOUR NAME"
+    >
 
-    <div class="bike">
+    <button class="enter" onclick="enterGarage()">
+      ENTER GARAGE
+    </button>
 
-      <div class="seat"></div>
-      <div class="tank"></div>
-      <div class="frame"></div>
-      <div class="handle"></div>
-      <div class="light"></div>
-      <div class="exhaust"></div>
+  </div>
+</section>
 
-      <div class="wheel back-wheel"></div>
-      <div class="wheel front-wheel"></div>
 
-    </div>
+<!-- GARAGE -->
+
+<section id="garage">
+
+  <div class="ceiling"></div>
+  <div class="wall-lines"></div>
+
+  <div class="greeting">
+    <span>WELCOME TO</span>
+    <h2 id="rider">RIDER</h2>
+  </div>
+
+  <div class="floor"></div>
+
+  <div class="bike-stage">
+
+    <div class="bike-shadow"></div>
+
+    <div class="smoke"></div>
+
+    <div class="wheel back-wheel"></div>
+    <div class="wheel front-wheel"></div>
+
+    <div class="seat"></div>
+    <div class="tank"></div>
+    <div class="frame"></div>
+    <div class="engine"></div>
+    <div class="exhaust"></div>
+    <div class="fork"></div>
+    <div class="handlebar"></div>
+    <div class="headlight"></div>
+    <div class="accent"></div>
+
+  </div>
+
+  <div class="controls">
 
     <button
-      class="accelerator"
-      id="accelerator"
+      class="accelerate"
+      id="accelerate"
       onpointerdown="startRev()"
       onpointerup="stopRev()"
+      onpointercancel="stopRev()"
       onpointerleave="stopRev()"
     >
       ⚡ ACCELERATE
@@ -365,96 +634,111 @@
       ENGINE IDLE • 1000 RPM
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <script>
-    const nameInput = document.getElementById("nameInput");
-    const welcomeScreen = document.getElementById("welcomeScreen");
-    const garageScreen = document.getElementById("garageScreen");
-    const userName = document.getElementById("userName");
-    const rpm = document.getElementById("rpm");
+<script>
 
-    function enterGarage() {
+const welcome=document.getElementById("welcome");
+const garage=document.getElementById("garage");
+const nameInput=document.getElementById("name");
+const rider=document.getElementById("rider");
+const rpm=document.getElementById("rpm");
 
-      let name = nameInput.value.trim();
+function enterGarage(){
 
-      if (name === "") {
-        nameInput.focus();
-        nameInput.placeholder = "PLEASE ENTER YOUR NAME";
-        return;
-      }
+  const name=nameInput.value.trim();
 
-      userName.textContent = name.toUpperCase();
+  if(!name){
+    nameInput.focus();
+    return;
+  }
 
-      welcomeScreen.style.display = "none";
-      garageScreen.classList.add("active");
-    }
+  rider.textContent=name.toUpperCase();
 
-    nameInput.addEventListener("keydown", function(event) {
-      if (event.key === "Enter") {
-        enterGarage();
-      }
-    });
+  welcome.style.display="none";
+  garage.classList.add("show");
+}
 
-    let audioContext;
-    let oscillator;
-    let gain;
 
-    function startRev() {
+/* ENTER KEY */
 
-      document.body.classList.add("revving");
+nameInput.addEventListener("keydown",e=>{
+  if(e.key==="Enter") enterGarage();
+});
 
-      rpm.textContent = "ENGINE REVVING • 6500 RPM";
 
-      // Browser allows sound only after user interaction
-      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+/* ENGINE SOUND */
 
-      oscillator = audioContext.createOscillator();
-      gain = audioContext.createGain();
+let audio;
+let osc;
+let gain;
+let revving=false;
 
-      oscillator.type = "sawtooth";
-      oscillator.frequency.value = 90;
+function startRev(){
 
-      gain.gain.value = 0.0001;
+  if(revving)return;
 
-      oscillator.connect(gain);
-      gain.connect(audioContext.destination);
+  revving=true;
 
-      oscillator.start();
+  document.body.classList.add("revving");
 
-      gain.gain.exponentialRampToValueAtTime(
-        0.12,
-        audioContext.currentTime + 0.08
-      );
+  rpm.textContent="ENGINE REVVING • 6500 RPM";
 
-      oscillator.frequency.exponentialRampToValueAtTime(
-        180,
-        audioContext.currentTime + 0.5
-      );
-    }
+  audio=new (window.AudioContext||window.webkitAudioContext)();
 
-    function stopRev() {
+  osc=audio.createOscillator();
+  gain=audio.createGain();
 
-      document.body.classList.remove("revving");
+  osc.type="sawtooth";
+  osc.frequency.value=65;
 
-      rpm.textContent = "ENGINE IDLE • 1000 RPM";
+  gain.gain.value=.0001;
 
-      if (gain && audioContext) {
+  osc.connect(gain);
+  gain.connect(audio.destination);
 
-        gain.gain.exponentialRampToValueAtTime(
-          0.0001,
-          audioContext.currentTime + 0.2
-        );
+  osc.start();
 
-        setTimeout(() => {
-          if (oscillator) {
-            oscillator.stop();
-          }
-        }, 250);
-      }
-    }
-  </script>
+  gain.gain.exponentialRampToValueAtTime(
+    .10,
+    audio.currentTime+.08
+  );
+
+  osc.frequency.exponentialRampToValueAtTime(
+    145,
+    audio.currentTime+.5
+  );
+}
+
+
+function stopRev(){
+
+  if(!revving)return;
+
+  revving=false;
+
+  document.body.classList.remove("revving");
+
+  rpm.textContent="ENGINE IDLE • 1000 RPM";
+
+  if(gain && audio){
+
+    gain.gain.exponentialRampToValueAtTime(
+      .0001,
+      audio.currentTime+.25
+    );
+
+    setTimeout(()=>{
+      try{osc.stop()}catch(e){}
+      try{audio.close()}catch(e){}
+    },300);
+  }
+}
+
+</script>
 
 </body>
 </html>
