@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#02060b">
 <title>Hunter Garage</title>
 
 <style>
@@ -13,11 +14,16 @@
   -webkit-tap-highlight-color:transparent;
 }
 
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
 body{
   background:#02050a;
-  color:white;
+  color:#fff;
   font-family:Arial,Helvetica,sans-serif;
-  overflow:hidden;
 }
 
 .screen{
@@ -27,47 +33,58 @@ body{
   position:relative;
 }
 
-/* ================= ENTRY ================= */
+/* =========================
+   ENTRY SCREEN
+========================= */
 
 #entry{
   display:flex;
   align-items:center;
   justify-content:center;
   background:
-    radial-gradient(circle at 50% 45%,#12365b 0%,#071421 30%,#02050a 70%);
+    radial-gradient(
+      circle at 50% 45%,
+      #123b61 0%,
+      #081826 28%,
+      #02050a 72%
+    );
 }
 
 .entry-box{
   width:min(90%,430px);
   text-align:center;
   padding:35px 25px;
-  animation:appear 1s ease;
+  animation:entryAppear 1s ease;
 }
 
 .logo{
-  font-size:13px;
-  letter-spacing:7px;
+  font-size:12px;
+  letter-spacing:6px;
   color:#72c8ff;
   margin-bottom:20px;
 }
 
 .entry-box h1{
-  font-size:clamp(45px,12vw,80px);
-  letter-spacing:5px;
+  font-size:clamp(44px,12vw,78px);
+  line-height:1;
+  letter-spacing:4px;
   font-weight:900;
-  text-shadow:0 0 30px #178fff;
+  text-shadow:
+    0 0 15px rgba(35,170,255,.5),
+    0 0 40px rgba(20,120,255,.35);
 }
 
 .entry-box h2{
-  font-size:14px;
+  font-size:13px;
   letter-spacing:6px;
-  color:#8ea3b7;
-  margin:8px 0 45px;
+  color:#91a6b8;
+  margin-top:12px;
+  margin-bottom:45px;
 }
 
 .entry-box p{
-  color:#8192a3;
-  font-size:12px;
+  color:#7f91a1;
+  font-size:11px;
   letter-spacing:3px;
   margin-bottom:14px;
 }
@@ -75,15 +92,19 @@ body{
 input{
   width:100%;
   height:58px;
-  background:rgba(255,255,255,.05);
   border:1px solid #31506b;
-  border-radius:4px;
-  color:white;
+  border-radius:5px;
+  outline:none;
+  background:rgba(255,255,255,.045);
+  color:#fff;
   padding:0 18px;
   text-align:center;
-  font-size:18px;
-  outline:none;
+  font-size:17px;
   letter-spacing:3px;
+}
+
+input::placeholder{
+  color:#607180;
 }
 
 input:focus{
@@ -96,94 +117,177 @@ input:focus{
   height:55px;
   margin-top:14px;
   border:0;
-  border-radius:4px;
-  background:linear-gradient(90deg,#0877c9,#20b7ff);
-  color:white;
+  border-radius:5px;
+  background:linear-gradient(
+    90deg,
+    #0877c9,
+    #20b7ff
+  );
+  color:#fff;
+  font-size:12px;
   font-weight:bold;
   letter-spacing:3px;
   cursor:pointer;
   box-shadow:0 0 25px rgba(0,145,255,.3);
 }
 
-/* ================= GARAGE ================= */
+/* =========================
+   GARAGE
+========================= */
 
 #garage{
   display:none;
-  background:#02060b;
 }
 
 .garage{
   position:absolute;
   inset:0;
   overflow:hidden;
+
   background:
-    radial-gradient(ellipse at 50% 42%,rgba(26,91,140,.35),transparent 40%),
-    linear-gradient(#07111b 0%,#03070c 58%,#010204 100%);
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(28,100,150,.38),
+      transparent 42%
+    ),
+    linear-gradient(
+      #07131f 0%,
+      #03080d 58%,
+      #010204 100%
+    );
 }
+
+/* Ceiling */
 
 .ceiling{
   position:absolute;
   top:0;
   left:0;
   width:100%;
-  height:28%;
+  height:27%;
+
   background:
-    linear-gradient(90deg,transparent 15%,rgba(70,180,255,.12) 15.2%,transparent 15.5%,
-    transparent 84.5%,rgba(70,180,255,.12) 84.8%,transparent 85%);
+    linear-gradient(
+      90deg,
+      transparent 15%,
+      rgba(70,180,255,.12) 15.2%,
+      transparent 15.5%,
+      transparent 84.5%,
+      rgba(70,180,255,.12) 84.8%,
+      transparent 85%
+    );
+
   border-bottom:1px solid rgba(90,170,220,.18);
 }
+
+/* Garage lights */
 
 .light{
   position:absolute;
   top:7%;
   width:28%;
   height:4px;
-  background:#bce9ff;
-  box-shadow:0 0 15px #40baff,0 0 45px #168cff;
+
+  background:#c5edff;
+
+  box-shadow:
+    0 0 12px #5acaff,
+    0 0 40px #168cff,
+    0 0 70px rgba(30,130,255,.5);
 }
 
-.light.l1{left:5%;transform:rotate(-2deg)}
-.light.l2{left:36%}
-.light.l3{right:5%;transform:rotate(2deg)}
+.light.l1{
+  left:5%;
+  transform:rotate(-2deg);
+}
+
+.light.l2{
+  left:36%;
+}
+
+.light.l3{
+  right:5%;
+  transform:rotate(2deg);
+}
+
+/* Wall details */
+
+.wall-lines{
+  position:absolute;
+  inset:25% 0 25%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 10%,
+      rgba(100,190,255,.12) 10.1%,
+      transparent 10.3%,
+      transparent 90%,
+      rgba(100,190,255,.12) 90.1%,
+      transparent 90.3%
+    );
+}
+
+/* Floor */
 
 .floor{
   position:absolute;
   bottom:0;
   left:0;
   width:100%;
-  height:43%;
+  height:39%;
+
   background:
-    linear-gradient(rgba(70,120,150,.12) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(70,120,150,.08) 1px,transparent 1px),
-    linear-gradient(#111a20,#05080b);
-  background-size:70px 45px,70px 45px,100% 100%;
-  transform:perspective(500px) rotateX(58deg);
+    linear-gradient(
+      rgba(70,120,150,.12) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(70,120,150,.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      #111a20,
+      #05080b
+    );
+
+  background-size:
+    70px 45px,
+    70px 45px,
+    100% 100%;
+
+  transform:
+    perspective(500px)
+    rotateX(58deg);
+
   transform-origin:bottom;
 }
 
-.wall-lines{
-  position:absolute;
-  inset:25% 0 25%;
-  background:
-    linear-gradient(90deg,transparent 10%,rgba(100,190,255,.12) 10.1%,transparent 10.3%,
-    transparent 90%,rgba(100,190,255,.12) 90.1%,transparent 90.3%);
-}
+/* =========================
+   HEADER
+========================= */
 
 .header{
   position:absolute;
-  top:25px;
-  left:25px;
-  right:25px;
+  top:22px;
+  left:22px;
+  right:22px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-  z-index:10;
+
+  z-index:20;
 }
 
 .brand{
-  font-size:12px;
+  font-size:11px;
   letter-spacing:5px;
   color:#67caff;
+
+  text-shadow:
+    0 0 12px rgba(60,190,255,.4);
 }
 
 .rider{
@@ -192,79 +296,141 @@ input:focus{
 
 .rider small{
   display:block;
-  font-size:8px;
+  font-size:7px;
   color:#657687;
   letter-spacing:3px;
+  margin-bottom:3px;
 }
 
 .rider strong{
-  font-size:15px;
+  font-size:14px;
   letter-spacing:2px;
 }
 
-/* ================= BIKE ================= */
+/* =========================
+   BIKE AREA
+========================= */
 
 .bike-area{
   position:absolute;
-  width:min(900px,95vw);
-  height:390px;
+
+  width:min(820px,94vw);
+  height:330px;
+
   left:50%;
-  top:51%;
-  transform:translate(-50%,-50%);
-  z-index:5;
-  transition:.2s;
+  top:47%;
+
+  transform:
+    translate(-50%,-50%)
+    scale(.88);
+
+  transform-origin:center center;
+
+  z-index:10;
+
+  transition:
+    transform .12s ease;
 }
+
+/* =========================
+   BIKE
+========================= */
 
 .bike{
   position:absolute;
+
   width:82%;
   height:240px;
+
   left:9%;
   bottom:45px;
-  filter:drop-shadow(0 25px 25px rgba(0,0,0,.9));
-  transition:transform .08s;
+
+  filter:
+    drop-shadow(
+      0 25px 25px rgba(0,0,0,.9)
+    );
+
+  transition:
+    transform .08s ease;
 }
+
+/* Wheels */
 
 .wheel{
   position:absolute;
+
   width:145px;
   height:145px;
+
   border:9px solid #161b20;
   border-radius:50%;
+
   bottom:0;
+
   background:
-    radial-gradient(circle,#05070a 0 16%,#69737b 17% 19%,#090c10 20% 24%,transparent 25%);
+    radial-gradient(
+      circle,
+      #05070a 0 16%,
+      #69737b 17% 19%,
+      #090c10 20% 24%,
+      transparent 25%
+    );
+
   box-shadow:
     inset 0 0 0 4px #414a50,
     0 0 0 2px #050607,
     0 18px 25px rgba(0,0,0,.8);
 }
 
-.wheel:after{
+.wheel::after{
   content:"";
+
   position:absolute;
   inset:16px;
-  border:2px dashed #59636a;
+
+  border:
+    2px dashed #59636a;
+
   border-radius:50%;
+
   opacity:.7;
 }
 
-.front{right:0}
-.rear{left:0}
+.rear{
+  left:0;
+}
+
+.front{
+  right:0;
+}
+
+/* Frame */
 
 .frame{
   position:absolute;
+
   width:300px;
   height:135px;
+
   left:155px;
   bottom:63px;
 }
 
 .tube{
   position:absolute;
+
   height:9px;
-  background:linear-gradient(90deg,#252d32,#8b969d,#252d32);
+
+  background:
+    linear-gradient(
+      90deg,
+      #252d32,
+      #8b969d,
+      #252d32
+    );
+
   transform-origin:left center;
+
   border-radius:5px;
 }
 
@@ -296,100 +462,193 @@ input:focus{
   transform:rotate(4deg);
 }
 
+/* Tank */
+
 .tank{
   position:absolute;
+
   left:215px;
   bottom:165px;
+
   width:170px;
   height:78px;
+
   background:
-    linear-gradient(145deg,#8e969b 0%,#262d31 20%,#090c0f 70%,#394148 100%);
-  border-radius:75% 35% 55% 35%;
+    linear-gradient(
+      145deg,
+      #8e969b 0%,
+      #262d31 20%,
+      #090c0f 70%,
+      #394148 100%
+    );
+
+  border-radius:
+    75% 35% 55% 35%;
+
   transform:skewX(-8deg);
+
   box-shadow:
     inset 0 2px 2px rgba(255,255,255,.35),
     0 8px 20px #000;
 }
 
-.tank:after{
+.tank::after{
   content:"HUNTER";
+
   position:absolute;
+
   right:25px;
   top:30px;
+
   font-size:12px;
   font-weight:bold;
+
   letter-spacing:2px;
+
   color:#dce5e9;
 }
 
+/* Seat */
+
 .seat{
   position:absolute;
+
   left:370px;
   bottom:218px;
+
   width:150px;
   height:32px;
-  background:linear-gradient(#252b2f,#050607);
-  border-radius:35px 35px 8px 8px;
+
+  background:
+    linear-gradient(
+      #252b2f,
+      #050607
+    );
+
+  border-radius:
+    35px 35px 8px 8px;
+
   transform:rotate(-4deg);
-  box-shadow:0 8px 12px #000;
+
+  box-shadow:
+    0 8px 12px #000;
 }
+
+/* Engine */
 
 .engine{
   position:absolute;
+
   left:285px;
   bottom:68px;
+
   width:120px;
   height:105px;
+
   background:
-    linear-gradient(135deg,#4b555b,#101417 35%,#30383d 60%,#080a0c);
-  border-radius:15px 15px 25px 25px;
-  box-shadow:inset 0 0 15px #000,0 8px 12px #000;
+    linear-gradient(
+      135deg,
+      #4b555b,
+      #101417 35%,
+      #30383d 60%,
+      #080a0c
+    );
+
+  border-radius:
+    15px 15px 25px 25px;
+
+  box-shadow:
+    inset 0 0 15px #000,
+    0 8px 12px #000;
 }
 
-.engine:before{
+.engine::before{
   content:"";
+
   position:absolute;
+
   left:15px;
   top:17px;
+
   width:90px;
   height:5px;
+
   background:#727d83;
-  box-shadow:0 15px #606a70,0 30px #505a60,0 45px #414a4f;
+
+  box-shadow:
+    0 15px #606a70,
+    0 30px #505a60,
+    0 45px #414a4f;
 }
+
+/* Exhaust */
 
 .exhaust{
   position:absolute;
+
   width:190px;
   height:18px;
+
   left:365px;
   bottom:68px;
-  background:linear-gradient(#9ca5aa,#1a2024,#7b858a);
+
+  background:
+    linear-gradient(
+      #9ca5aa,
+      #1a2024,
+      #7b858a
+    );
+
   border-radius:20px;
+
   transform:rotate(4deg);
-  box-shadow:0 8px 10px #000;
+
+  box-shadow:
+    0 8px 10px #000;
 }
 
-.exhaust:after{
+.exhaust::after{
   content:"";
+
   position:absolute;
+
   right:-12px;
   top:-2px;
+
   width:24px;
   height:22px;
+
   border-radius:50%;
+
   background:#050708;
+
   border:2px solid #6e777b;
 }
 
+/* Front forks */
+
 .fork{
   position:absolute;
+
   right:100px;
   bottom:105px;
+
   width:12px;
   height:150px;
-  background:linear-gradient(90deg,#555f64,#d0d6d8,#444b50);
-  transform:rotate(-12deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      #555f64,
+      #d0d6d8,
+      #444b50
+    );
+
+  transform:
+    rotate(-12deg);
+
   transform-origin:bottom;
+
   border-radius:10px;
 }
 
@@ -397,58 +656,168 @@ input:focus{
   right:125px;
 }
 
+/* Handle */
+
 .handle{
   position:absolute;
+
   right:85px;
   bottom:245px;
+
   width:105px;
   height:8px;
+
   background:#080b0d;
+
   transform:rotate(-8deg);
+
   border-radius:5px;
 }
 
+/* Headlight */
+
 .headlight{
   position:absolute;
+
   right:77px;
   bottom:207px;
+
   width:43px;
   height:43px;
+
   border-radius:50%;
+
   background:#dff7ff;
+
   border:5px solid #343d42;
-  box-shadow:0 0 15px #65d5ff,0 0 60px #229cff;
+
+  box-shadow:
+    0 0 15px #65d5ff,
+    0 0 60px #229cff;
+
   transition:.1s;
 }
 
+/* Headlight beam */
+
 .headlight-beam{
   position:absolute;
+
   right:-100px;
   bottom:185px;
+
   width:260px;
   height:100px;
-  background:linear-gradient(90deg,rgba(100,210,255,.22),transparent);
-  clip-path:polygon(0 35%,100% 0,100% 100%,0 65%);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(100,210,255,.22),
+      transparent
+    );
+
+  clip-path:
+    polygon(
+      0 35%,
+      100% 0,
+      100% 100%,
+      0 65%
+    );
+
   opacity:.45;
 }
 
-/* ================= CONTROLS ================= */
+/* =========================
+   EXHAUST SMOKE
+========================= */
+
+.smoke{
+  position:absolute;
+
+  left:18%;
+  bottom:88px;
+
+  width:20px;
+  height:20px;
+
+  border-radius:50%;
+
+  background:
+    rgba(170,190,200,.15);
+
+  opacity:0;
+
+  filter:blur(5px);
+}
+
+.smoke.s1{
+  animation:
+    smoke 1.7s infinite;
+}
+
+.smoke.s2{
+  animation:
+    smoke 1.3s .4s infinite;
+}
+
+.smoke.s3{
+  animation:
+    smoke 1.9s .8s infinite;
+}
+
+@keyframes smoke{
+
+  0%{
+    transform:
+      translate(0,0)
+      scale(.5);
+
+    opacity:0;
+  }
+
+  30%{
+    opacity:.3;
+  }
+
+  100%{
+    transform:
+      translate(-80px,-100px)
+      scale(3);
+
+    opacity:0;
+  }
+}
+
+/* =========================
+   CONTROLS
+========================= */
 
 .controls{
   position:absolute;
-  bottom:28px;
+
+  bottom:22px;
   left:50%;
+
   transform:translateX(-50%);
+
   width:min(92%,430px);
+
   text-align:center;
-  z-index:20;
+
+  z-index:30;
 }
 
 .rpm{
-  font-size:12px;
+  font-size:11px;
+
   letter-spacing:4px;
+
   color:#7c8d9c;
-  margin-bottom:12px;
+
+  margin-bottom:11px;
+
+  text-shadow:
+    0 0 10px rgba(50,180,255,.25);
 }
 
 .rpm span{
@@ -457,163 +826,384 @@ input:focus{
 
 .accelerator{
   width:100%;
-  height:62px;
-  border:1px solid #268ed0;
-  background:linear-gradient(180deg,#0b2438,#06111c);
+  height:60px;
+
+  border:
+    1px solid #268ed0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0b2438,
+      #06111c
+    );
+
   color:#fff;
+
   border-radius:5px;
-  font-size:15px;
+
+  font-size:13px;
   font-weight:bold;
-  letter-spacing:5px;
-  box-shadow:0 0 25px rgba(0,150,255,.2);
+
+  letter-spacing:4px;
+
+  box-shadow:
+    0 0 25px rgba(0,150,255,.2);
+
   cursor:pointer;
+
   user-select:none;
   touch-action:none;
 }
 
 .accelerator:active{
-  background:linear-gradient(180deg,#126a9c,#07304d);
-  box-shadow:0 0 45px rgba(0,170,255,.55);
+  background:
+    linear-gradient(
+      180deg,
+      #126a9c,
+      #07304d
+    );
+
+  box-shadow:
+    0 0 45px rgba(0,170,255,.55);
 }
 
 .hint{
-  font-size:8px;
+  font-size:7px;
+
   color:#566876;
+
   letter-spacing:3px;
-  margin-top:9px;
+
+  margin-top:8px;
 }
 
-/* ================= EFFECTS ================= */
+/* =========================
+   ENGINE SHAKE
+========================= */
 
-.smoke{
-  position:absolute;
-  left:18%;
-  bottom:88px;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:rgba(170,190,200,.15);
-  opacity:0;
-  filter:blur(5px);
+@keyframes bikeShake{
+
+  0%,100%{
+    transform:
+      translate(0,0)
+      rotate(0);
+  }
+
+  25%{
+    transform:
+      translate(2px,0)
+      rotate(.12deg);
+  }
+
+  50%{
+    transform:
+      translate(-2px,1px)
+      rotate(-.12deg);
+  }
+
+  75%{
+    transform:
+      translate(1px,-1px)
+      rotate(.08deg);
+  }
 }
 
-.smoke.s1{animation:smoke 1.7s infinite}
-.smoke.s2{animation:smoke 1.3s .4s infinite}
-.smoke.s3{animation:smoke 1.9s .8s infinite}
+/* =========================
+   ENTRY ANIMATION
+========================= */
 
-@keyframes smoke{
-  0%{transform:translate(0,0) scale(.5);opacity:0}
-  30%{opacity:.3}
-  100%{transform:translate(-80px,-100px) scale(3);opacity:0}
+@keyframes entryAppear{
+
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
-@keyframes appear{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-@keyframes shake{
-  0%,100%{transform:translate(-50%,-50%) rotate(0)}
-  25%{transform:translate(calc(-50% + 2px),-50%) rotate(.15deg)}
-  50%{transform:translate(calc(-50% - 2px),-50%) rotate(-.15deg)}
-  75%{transform:translate(calc(-50% + 1px),-50%) rotate(.1deg)}
-}
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
+
   .bike-area{
-    top:45%;
-    transform:translate(-50%,-50%) scale(.78);
+
+    width:760px;
+    height:300px;
+
+    left:50%;
+    top:44%;
+
+    transform:
+      translate(-50%,-50%)
+      scale(.62);
+
+    transform-origin:center center;
+  }
+
+  .bike{
+    width:82%;
+    height:240px;
+    left:9%;
+    bottom:30px;
   }
 
   .header{
-    top:18px;
-    left:16px;
-    right:16px;
+    top:16px;
+    left:18px;
+    right:18px;
+  }
+
+  .brand{
+    font-size:9px;
+    letter-spacing:4px;
+  }
+
+  .rider small{
+    font-size:7px;
+  }
+
+  .rider strong{
+    font-size:13px;
   }
 
   .controls{
-    bottom:18px;
+    bottom:17px;
+    width:90%;
+  }
+
+  .rpm{
+    font-size:10px;
+    margin-bottom:10px;
+  }
+
+  .accelerator{
+    height:58px;
+    font-size:12px;
+    letter-spacing:4px;
+  }
+
+  .hint{
+    font-size:7px;
   }
 
   .floor{
     height:35%;
   }
 }
+
+/* Extra small phones */
+
+@media(max-width:380px){
+
+  .bike-area{
+    top:42%;
+    transform:
+      translate(-50%,-50%)
+      scale(.55);
+  }
+
+  .controls{
+    width:92%;
+  }
+
+  .accelerator{
+    font-size:11px;
+    letter-spacing:3px;
+  }
+}
+
+/* Landscape phones */
+
+@media(max-height:600px) and (orientation:landscape){
+
+  .bike-area{
+    top:46%;
+    transform:
+      translate(-50%,-50%)
+      scale(.58);
+  }
+
+  .controls{
+    bottom:8px;
+  }
+
+  .accelerator{
+    height:45px;
+  }
+
+  .rpm{
+    margin-bottom:5px;
+  }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ENTRY -->
+<!-- =================================
+     ENTRY SCREEN
+================================= -->
+
 <section id="entry" class="screen">
+
   <div class="entry-box">
-    <div class="logo">ROYAL GARAGE EXPERIENCE</div>
-    <h1>HUNTER 350</h1>
-    <h2>YOUR GARAGE</h2>
 
-    <p>ENTER YOUR NAME TO ENTER</p>
+    <div class="logo">
+      ROYAL GARAGE EXPERIENCE
+    </div>
 
-    <input id="nameInput"
-           type="text"
-           maxlength="18"
-           autocomplete="off"
-           placeholder="YOUR NAME">
+    <h1>
+      HUNTER 350
+    </h1>
 
-    <button class="enter" onclick="enterGarage()">
+    <h2>
+      YOUR GARAGE
+    </h2>
+
+    <p>
+      ENTER YOUR NAME TO ENTER
+    </p>
+
+    <input
+      id="nameInput"
+      type="text"
+      maxlength="18"
+      autocomplete="off"
+      placeholder="YOUR NAME"
+    >
+
+    <button
+      class="enter"
+      onclick="enterGarage()"
+    >
       ENTER GARAGE →
     </button>
+
   </div>
+
 </section>
 
-<!-- GARAGE -->
+
+<!-- =================================
+     GARAGE SCREEN
+================================= -->
+
 <section id="garage" class="screen">
 
   <div class="garage">
 
     <div class="ceiling"></div>
+
     <div class="light l1"></div>
     <div class="light l2"></div>
     <div class="light l3"></div>
 
     <div class="wall-lines"></div>
+
     <div class="floor"></div>
 
+
+    <!-- HEADER -->
+
     <div class="header">
-      <div class="brand">HUNTER / GARAGE 350</div>
+
+      <div class="brand">
+        HUNTER / GARAGE 350
+      </div>
 
       <div class="rider">
-        <small>RIDER</small>
-        <strong id="riderName">RIDER</strong>
+
+        <small>
+          RIDER
+        </small>
+
+        <strong id="riderName">
+          RIDER
+        </strong>
+
       </div>
+
     </div>
 
-    <div id="bikeArea" class="bike-area">
+
+    <!-- =================================
+         BIKE
+    ================================= -->
+
+    <div
+      id="bikeArea"
+      class="bike-area"
+    >
 
       <div class="bike">
+
+        <!-- Wheels -->
 
         <div class="wheel rear"></div>
         <div class="wheel front"></div>
 
+
+        <!-- Frame -->
+
         <div class="frame">
+
           <div class="tube t1"></div>
           <div class="tube t2"></div>
           <div class="tube t3"></div>
           <div class="tube t4"></div>
+
         </div>
 
+
+        <!-- Tank -->
+
         <div class="tank"></div>
+
+
+        <!-- Seat -->
+
         <div class="seat"></div>
+
+
+        <!-- Engine -->
+
         <div class="engine"></div>
+
+
+        <!-- Exhaust -->
+
         <div class="exhaust"></div>
+
+
+        <!-- Front suspension -->
 
         <div class="fork"></div>
         <div class="fork fork2"></div>
+
+
+        <!-- Handle -->
+
         <div class="handle"></div>
 
+
+        <!-- Headlight -->
+
         <div class="headlight"></div>
+
         <div class="headlight-beam"></div>
 
       </div>
+
+
+      <!-- Smoke -->
 
       <div class="smoke s1"></div>
       <div class="smoke s2"></div>
@@ -621,15 +1211,31 @@ input:focus{
 
     </div>
 
+
+    <!-- =================================
+         CONTROLS
+    ================================= -->
+
     <div class="controls">
 
       <div class="rpm">
-        ENGINE <span id="rpm">IDLE • 1000 RPM</span>
+
+        ENGINE
+
+        <span id="rpm">
+          IDLE • 1000 RPM
+        </span>
+
       </div>
 
-      <button id="accelerator" class="accelerator">
+
+      <button
+        id="accelerator"
+        class="accelerator"
+      >
         ⚡ HOLD TO ACCELERATE
       </button>
+
 
       <div class="hint">
         HOLD THE BUTTON • FEEL THE MACHINE
@@ -638,149 +1244,364 @@ input:focus{
     </div>
 
   </div>
+
 </section>
+
 
 <script>
 
-const entry = document.getElementById("entry");
-const garage = document.getElementById("garage");
-const nameInput = document.getElementById("nameInput");
-const riderName = document.getElementById("riderName");
-const rpmText = document.getElementById("rpm");
-const bikeArea = document.getElementById("bikeArea");
-const accelerator = document.getElementById("accelerator");
-const headlight = document.querySelector(".headlight");
+/* =================================
+   ELEMENTS
+================================= */
+
+const entry =
+  document.getElementById("entry");
+
+const garage =
+  document.getElementById("garage");
+
+const nameInput =
+  document.getElementById("nameInput");
+
+const riderName =
+  document.getElementById("riderName");
+
+const rpmText =
+  document.getElementById("rpm");
+
+const bikeArea =
+  document.getElementById("bikeArea");
+
+const accelerator =
+  document.getElementById("accelerator");
+
+const headlight =
+  document.querySelector(".headlight");
+
+
+/* =================================
+   VARIABLES
+================================= */
 
 let rpm = 1000;
+
 let accelerating = false;
-let audioCtx;
-let oscillator;
-let gain;
+
+let audioCtx = null;
+
+let oscillator = null;
+
+let gain = null;
+
+
+/* =================================
+   ENTER GARAGE
+================================= */
 
 function enterGarage(){
 
-  let name = nameInput.value.trim();
+  let name =
+    nameInput.value.trim();
 
   if(!name){
     name = "RIDER";
   }
 
-  riderName.textContent = name.toUpperCase();
+  riderName.textContent =
+    name.toUpperCase();
 
-  entry.style.animation = "appear .5s reverse";
+  entry.style.opacity = "0";
 
-  setTimeout(()=>{
+  entry.style.transition =
+    "opacity .35s ease";
+
+  setTimeout(function(){
+
     entry.style.display = "none";
+
     garage.style.display = "block";
-  },300);
+
+  },350);
 }
 
-nameInput.addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"){
-    enterGarage();
-  }
-});
 
-/* AUDIO */
+/* =================================
+   ENTER KEY
+================================= */
+
+nameInput.addEventListener(
+  "keydown",
+  function(e){
+
+    if(e.key === "Enter"){
+      enterGarage();
+    }
+
+  }
+);
+
+
+/* =================================
+   ENGINE AUDIO
+================================= */
 
 function startEngine(){
 
   if(!audioCtx){
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    oscillator = audioCtx.createOscillator();
-    gain = audioCtx.createGain();
+    audioCtx =
+      new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
 
-    oscillator.type = "sawtooth";
-    oscillator.frequency.value = 55;
+    oscillator =
+      audioCtx.createOscillator();
 
-    gain.gain.value = 0.0001;
+    gain =
+      audioCtx.createGain();
+
+
+    oscillator.type =
+      "sawtooth";
+
+    oscillator.frequency.value =
+      55;
+
+    gain.gain.value =
+      0.0001;
+
 
     oscillator.connect(gain);
-    gain.connect(audioCtx.destination);
+
+    gain.connect(
+      audioCtx.destination
+    );
 
     oscillator.start();
   }
 
-  if(audioCtx.state==="suspended"){
+
+  if(
+    audioCtx.state ===
+    "suspended"
+  ){
+
     audioCtx.resume();
+
   }
 
-  gain.gain.cancelScheduledValues(audioCtx.currentTime);
-  gain.gain.linearRampToValueAtTime(.055,audioCtx.currentTime+.08);
+
+  gain.gain.cancelScheduledValues(
+    audioCtx.currentTime
+  );
+
+  gain.gain.linearRampToValueAtTime(
+    0.055,
+    audioCtx.currentTime + .08
+  );
+
 
   accelerating = true;
 }
+
+
+/* =================================
+   STOP ENGINE
+================================= */
 
 function stopEngine(){
 
   accelerating = false;
 
   if(gain){
-    gain.gain.cancelScheduledValues(audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(.0001,audioCtx.currentTime+.25);
+
+    gain.gain.cancelScheduledValues(
+      audioCtx.currentTime
+    );
+
+    gain.gain.linearRampToValueAtTime(
+      0.0001,
+      audioCtx.currentTime + .25
+    );
+
   }
 }
+
+
+/* =================================
+   ENGINE LOOP
+================================= */
 
 function updateEngine(){
 
   if(accelerating){
 
-    rpm += (9000-rpm)*.035;
+    rpm +=
+      (9000 - rpm) * .035;
 
   }else{
 
-    rpm += (1000-rpm)*.08;
+    rpm +=
+      (1000 - rpm) * .08;
 
   }
 
-  rpm = Math.round(rpm);
 
-  rpmText.textContent =
-    accelerating
-    ? "REV • " + rpm + " RPM"
-    : "IDLE • " + rpm + " RPM";
+  rpm =
+    Math.round(rpm);
 
-  if(oscillator){
+
+  if(accelerating){
+
+    rpmText.textContent =
+      "REV • " +
+      rpm +
+      " RPM";
+
+  }else{
+
+    rpmText.textContent =
+      "IDLE • " +
+      rpm +
+      " RPM";
+
+  }
+
+
+  /* Engine sound pitch */
+
+  if(
+    oscillator &&
+    audioCtx
+  ){
 
     oscillator.frequency.setTargetAtTime(
-      45 + rpm/55,
+
+      45 + rpm / 55,
+
       audioCtx.currentTime,
+
       .03
+
     );
+
   }
 
-  let shake = accelerating
-    ? Math.min(8,(rpm-1000)/1000)
-    : 0;
 
-  bikeArea.style.animation =
-    accelerating
-    ? "shake .08s infinite"
-    : "none";
+  /* Bike vibration */
 
-  headlight.style.boxShadow =
-    accelerating
-    ? "0 0 25px #8ce5ff,0 0 100px #249fff"
-    : "0 0 15px #65d5ff,0 0 60px #229cff";
+  if(accelerating){
 
-  requestAnimationFrame(updateEngine);
+    bikeArea.style.animation =
+      "bikeShake .08s infinite";
+
+  }else{
+
+    bikeArea.style.animation =
+      "none";
+
+  }
+
+
+  /* Headlight */
+
+  if(accelerating){
+
+    headlight.style.boxShadow =
+      "0 0 25px #8ce5ff, 0 0 100px #249fff";
+
+  }else{
+
+    headlight.style.boxShadow =
+      "0 0 15px #65d5ff, 0 0 60px #229cff";
+
+  }
+
+
+  requestAnimationFrame(
+    updateEngine
+  );
 }
 
-requestAnimationFrame(updateEngine);
 
-/* ACCELERATOR */
+/* Start loop */
 
-accelerator.addEventListener("pointerdown",(e)=>{
-  e.preventDefault();
-  startEngine();
-});
+requestAnimationFrame(
+  updateEngine
+);
 
-accelerator.addEventListener("pointerup",stopEngine);
-accelerator.addEventListener("pointercancel",stopEngine);
-accelerator.addEventListener("pointerleave",(e)=>{
-  if(accelerating) stopEngine();
-});
+
+/* =================================
+   ACCELERATOR
+================================= */
+
+accelerator.addEventListener(
+  "pointerdown",
+  function(e){
+
+    e.preventDefault();
+
+    startEngine();
+
+  }
+);
+
+
+accelerator.addEventListener(
+  "pointerup",
+  function(){
+
+    stopEngine();
+
+  }
+);
+
+
+accelerator.addEventListener(
+  "pointercancel",
+  function(){
+
+    stopEngine();
+
+  }
+);
+
+
+accelerator.addEventListener(
+  "pointerleave",
+  function(){
+
+    if(accelerating){
+
+      stopEngine();
+
+    }
+
+  }
+);
+
+
+/* =================================
+   SAFETY
+   Stop engine if finger leaves page
+================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(
+      document.hidden &&
+      accelerating
+    ){
+
+      stopEngine();
+
+    }
+
+  }
+);
 
 </script>
 
