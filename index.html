@@ -2,1605 +2,1605 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#02060b">
-<title>Hunter Garage</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=no">
+
+<meta name="theme-color" content="#030711">
+
+<title>Hunter Garage 350</title>
 
 <style>
+
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#02050a;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-  background:#02050a;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+    touch-action:manipulation;
 }
 
-.screen{
-  width:100vw;
-  height:100vh;
-  min-height:560px;
-  position:relative;
-}
 
-/* =========================
+/* =====================================================
    ENTRY SCREEN
-========================= */
+===================================================== */
 
-#entry{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(
-      circle at 50% 45%,
-      #123b61 0%,
-      #081826 28%,
-      #02050a 72%
-    );
+.entry{
+    position:fixed;
+    inset:0;
+    z-index:100;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(0,105,220,.20),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            #02040a,
+            #07111f 55%,
+            #02050a
+        );
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
 }
 
-.entry-box{
-  width:min(90%,430px);
-  text-align:center;
-  padding:35px 25px;
-  animation:entryAppear 1s ease;
+.entry.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.entry-card{
+    width:min(420px,92vw);
+
+    padding:40px 24px;
+
+    text-align:center;
+
+    border-radius:24px;
+
+    border:1px solid
+        rgba(80,170,255,.22);
+
+    background:
+        rgba(4,11,22,.78);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.7),
+        inset 0 0 40px
+        rgba(30,120,255,.04);
+}
+
+.small-logo{
+    color:#69b8ff;
+
+    font-size:11px;
+
+    letter-spacing:5px;
+
+    margin-bottom:16px;
+}
+
+.entry-title{
+    font-size:
+        clamp(42px,12vw,68px);
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    line-height:.9;
+}
+
+.entry-subtitle{
+    margin-top:13px;
+
+    font-size:14px;
+
+    color:#9eafc3;
+
+    letter-spacing:7px;
+}
+
+.entry-description{
+    margin-top:30px;
+
+    font-size:10px;
+
+    color:#73849a;
+
+    letter-spacing:2.5px;
+}
+
+.name-input{
+    width:100%;
+
+    height:55px;
+
+    margin-top:15px;
+
+    padding:0 16px;
+
+    border-radius:13px;
+
+    border:1px solid
+        rgba(90,175,255,.30);
+
+    outline:none;
+
+    background:
+        rgba(0,0,0,.42);
+
+    color:white;
+
+    text-align:center;
+
+    font-size:16px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.name-input:focus{
+    border-color:#3198ff;
+
+    box-shadow:
+        0 0 22px
+        rgba(30,130,255,.20);
+}
+
+.name-input::placeholder{
+    color:#63748a;
+}
+
+.enter-button{
+    width:100%;
+
+    height:55px;
+
+    margin-top:13px;
+
+    border:none;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #168bff,
+            #0646a0
+        );
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,100,255,.28);
+}
+
+.enter-button:active{
+    transform:scale(.97);
+}
+
+
+/* =====================================================
+   GARAGE
+===================================================== */
+
+.garage{
+    position:fixed;
+    inset:0;
+
+    overflow:hidden;
+
+    opacity:0;
+    visibility:hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 40%,
+            rgba(10,85,160,.20),
+            transparent 48%
+        ),
+        linear-gradient(
+            180deg,
+            #030711 0%,
+            #06101c 50%,
+            #010409 100%
+        );
+
+    transition:
+        opacity .8s ease;
+}
+
+.garage.show{
+    opacity:1;
+    visibility:visible;
+}
+
+
+/* =====================================================
+   GARAGE WALL
+===================================================== */
+
+.wall-lines{
+    position:absolute;
+    inset:0;
+
+    opacity:.35;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0 10%,
+            rgba(100,160,210,.035) 10.2% 10.4%,
+            transparent 10.6% 89.4%,
+            rgba(100,160,210,.035) 89.6% 89.8%,
+            transparent 90%
+        );
+
+    pointer-events:none;
+}
+
+.light-row{
+    position:absolute;
+
+    top:9%;
+
+    left:5%;
+    right:5%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    opacity:.65;
+}
+
+.light{
+    width:14%;
+
+    height:3px;
+
+    background:#cce8ff;
+
+    box-shadow:
+        0 0 10px #65b8ff,
+        0 0 30px rgba(40,140,255,.7);
+}
+
+
+/* =====================================================
+   FLOOR
+===================================================== */
+
+.floor{
+    position:absolute;
+
+    left:-15%;
+    bottom:-15%;
+
+    width:130%;
+    height:43%;
+
+    transform:
+        perspective(500px)
+        rotateX(58deg);
+
+    transform-origin:bottom;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 70px,
+            rgba(50,130,220,.045) 71px,
+            transparent 73px
+        ),
+        linear-gradient(
+            180deg,
+            rgba(10,25,42,.55),
+            rgba(0,3,8,.98)
+        );
+
+    border-top:
+        1px solid
+        rgba(80,160,230,.13);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:absolute;
+
+    top:17px;
+    left:18px;
+    right:18px;
+
+    z-index:20;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
 }
 
 .logo{
-  font-size:12px;
-  letter-spacing:6px;
-  color:#72c8ff;
-  margin-bottom:20px;
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:4px;
 }
 
-.entry-box h1{
-  font-size:clamp(44px,12vw,78px);
-  line-height:1;
-  letter-spacing:4px;
-  font-weight:900;
-  text-shadow:
-    0 0 15px rgba(35,170,255,.5),
-    0 0 40px rgba(20,120,255,.35);
-}
-
-.entry-box h2{
-  font-size:13px;
-  letter-spacing:6px;
-  color:#91a6b8;
-  margin-top:12px;
-  margin-bottom:45px;
-}
-
-.entry-box p{
-  color:#7f91a1;
-  font-size:11px;
-  letter-spacing:3px;
-  margin-bottom:14px;
-}
-
-input{
-  width:100%;
-  height:58px;
-  border:1px solid #31506b;
-  border-radius:5px;
-  outline:none;
-  background:rgba(255,255,255,.045);
-  color:#fff;
-  padding:0 18px;
-  text-align:center;
-  font-size:17px;
-  letter-spacing:3px;
-}
-
-input::placeholder{
-  color:#607180;
-}
-
-input:focus{
-  border-color:#43b5ff;
-  box-shadow:0 0 25px rgba(40,160,255,.25);
-}
-
-.enter{
-  width:100%;
-  height:55px;
-  margin-top:14px;
-  border:0;
-  border-radius:5px;
-  background:linear-gradient(
-    90deg,
-    #0877c9,
-    #20b7ff
-  );
-  color:#fff;
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:3px;
-  cursor:pointer;
-  box-shadow:0 0 25px rgba(0,145,255,.3);
-}
-
-/* =========================
-   GARAGE
-========================= */
-
-#garage{
-  display:none;
-}
-
-.garage{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-
-  background:
-    radial-gradient(
-      ellipse at 50% 45%,
-      rgba(28,100,150,.38),
-      transparent 42%
-    ),
-    linear-gradient(
-      #07131f 0%,
-      #03080d 58%,
-      #010204 100%
-    );
-}
-
-/* Ceiling */
-
-.ceiling{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:27%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 15%,
-      rgba(70,180,255,.12) 15.2%,
-      transparent 15.5%,
-      transparent 84.5%,
-      rgba(70,180,255,.12) 84.8%,
-      transparent 85%
-    );
-
-  border-bottom:1px solid rgba(90,170,220,.18);
-}
-
-/* Garage lights */
-
-.light{
-  position:absolute;
-  top:7%;
-  width:28%;
-  height:4px;
-
-  background:#c5edff;
-
-  box-shadow:
-    0 0 12px #5acaff,
-    0 0 40px #168cff,
-    0 0 70px rgba(30,130,255,.5);
-}
-
-.light.l1{
-  left:5%;
-  transform:rotate(-2deg);
-}
-
-.light.l2{
-  left:36%;
-}
-
-.light.l3{
-  right:5%;
-  transform:rotate(2deg);
-}
-
-/* Wall details */
-
-.wall-lines{
-  position:absolute;
-  inset:25% 0 25%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent 10%,
-      rgba(100,190,255,.12) 10.1%,
-      transparent 10.3%,
-      transparent 90%,
-      rgba(100,190,255,.12) 90.1%,
-      transparent 90.3%
-    );
-}
-
-/* Floor */
-
-.floor{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:39%;
-
-  background:
-    linear-gradient(
-      rgba(70,120,150,.12) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(70,120,150,.08) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      #111a20,
-      #05080b
-    );
-
-  background-size:
-    70px 45px,
-    70px 45px,
-    100% 100%;
-
-  transform:
-    perspective(500px)
-    rotateX(58deg);
-
-  transform-origin:bottom;
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.header{
-  position:absolute;
-  top:22px;
-  left:22px;
-  right:22px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  z-index:20;
-}
-
-.brand{
-  font-size:11px;
-  letter-spacing:5px;
-  color:#67caff;
-
-  text-shadow:
-    0 0 12px rgba(60,190,255,.4);
+.logo span{
+    color:#3da6ff;
 }
 
 .rider{
-  text-align:right;
-}
+    text-align:right;
 
-.rider small{
-  display:block;
-  font-size:7px;
-  color:#657687;
-  letter-spacing:3px;
-  margin-bottom:3px;
+    color:#73869d;
+
+    font-size:8px;
+
+    letter-spacing:2px;
 }
 
 .rider strong{
-  font-size:14px;
-  letter-spacing:2px;
+    display:block;
+
+    margin-top:3px;
+
+    color:white;
+
+    font-size:11px;
+
+    letter-spacing:2px;
 }
 
-/* =========================
-   BIKE AREA
-========================= */
 
-.bike-area{
-  position:absolute;
+/* =====================================================
+   BIKE DISPLAY
+===================================================== */
 
-  width:min(820px,94vw);
-  height:330px;
+.bike-stage{
+    position:absolute;
 
-  left:50%;
-  top:47%;
+    left:50%;
+    top:41%;
 
-  transform:
-    translate(-50%,-50%)
-    scale(.88);
+    width:100vw;
+    height:430px;
 
-  transform-origin:center center;
-
-  z-index:10;
-
-  transition:
-    transform .12s ease;
-}
-
-/* =========================
-   BIKE
-========================= */
-
-.bike{
-  position:absolute;
-
-  width:82%;
-  height:240px;
-
-  left:9%;
-  bottom:45px;
-
-  filter:
-    drop-shadow(
-      0 25px 25px rgba(0,0,0,.9)
-    );
-
-  transition:
-    transform .08s ease;
-}
-
-/* Wheels */
-
-.wheel{
-  position:absolute;
-
-  width:145px;
-  height:145px;
-
-  border:9px solid #161b20;
-  border-radius:50%;
-
-  bottom:0;
-
-  background:
-    radial-gradient(
-      circle,
-      #05070a 0 16%,
-      #69737b 17% 19%,
-      #090c10 20% 24%,
-      transparent 25%
-    );
-
-  box-shadow:
-    inset 0 0 0 4px #414a50,
-    0 0 0 2px #050607,
-    0 18px 25px rgba(0,0,0,.8);
-}
-
-.wheel::after{
-  content:"";
-
-  position:absolute;
-  inset:16px;
-
-  border:
-    2px dashed #59636a;
-
-  border-radius:50%;
-
-  opacity:.7;
-}
-
-.rear{
-  left:0;
-}
-
-.front{
-  right:0;
-}
-
-/* Frame */
-
-.frame{
-  position:absolute;
-
-  width:300px;
-  height:135px;
-
-  left:155px;
-  bottom:63px;
-}
-
-.tube{
-  position:absolute;
-
-  height:9px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #252d32,
-      #8b969d,
-      #252d32
-    );
-
-  transform-origin:left center;
-
-  border-radius:5px;
-}
-
-.t1{
-  width:155px;
-  left:25px;
-  top:15px;
-  transform:rotate(28deg);
-}
-
-.t2{
-  width:130px;
-  left:105px;
-  top:90px;
-  transform:rotate(-42deg);
-}
-
-.t3{
-  width:120px;
-  left:20px;
-  top:18px;
-  transform:rotate(61deg);
-}
-
-.t4{
-  width:110px;
-  left:102px;
-  top:90px;
-  transform:rotate(4deg);
-}
-
-/* Tank */
-
-.tank{
-  position:absolute;
-
-  left:215px;
-  bottom:165px;
-
-  width:170px;
-  height:78px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #8e969b 0%,
-      #262d31 20%,
-      #090c0f 70%,
-      #394148 100%
-    );
-
-  border-radius:
-    75% 35% 55% 35%;
-
-  transform:skewX(-8deg);
-
-  box-shadow:
-    inset 0 2px 2px rgba(255,255,255,.35),
-    0 8px 20px #000;
-}
-
-.tank::after{
-  content:"HUNTER";
-
-  position:absolute;
-
-  right:25px;
-  top:30px;
-
-  font-size:12px;
-  font-weight:bold;
-
-  letter-spacing:2px;
-
-  color:#dce5e9;
-}
-
-/* Seat */
-
-.seat{
-  position:absolute;
-
-  left:370px;
-  bottom:218px;
-
-  width:150px;
-  height:32px;
-
-  background:
-    linear-gradient(
-      #252b2f,
-      #050607
-    );
-
-  border-radius:
-    35px 35px 8px 8px;
-
-  transform:rotate(-4deg);
-
-  box-shadow:
-    0 8px 12px #000;
-}
-
-/* Engine */
-
-.engine{
-  position:absolute;
-
-  left:285px;
-  bottom:68px;
-
-  width:120px;
-  height:105px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #4b555b,
-      #101417 35%,
-      #30383d 60%,
-      #080a0c
-    );
-
-  border-radius:
-    15px 15px 25px 25px;
-
-  box-shadow:
-    inset 0 0 15px #000,
-    0 8px 12px #000;
-}
-
-.engine::before{
-  content:"";
-
-  position:absolute;
-
-  left:15px;
-  top:17px;
-
-  width:90px;
-  height:5px;
-
-  background:#727d83;
-
-  box-shadow:
-    0 15px #606a70,
-    0 30px #505a60,
-    0 45px #414a4f;
-}
-
-/* Exhaust */
-
-.exhaust{
-  position:absolute;
-
-  width:190px;
-  height:18px;
-
-  left:365px;
-  bottom:68px;
-
-  background:
-    linear-gradient(
-      #9ca5aa,
-      #1a2024,
-      #7b858a
-    );
-
-  border-radius:20px;
-
-  transform:rotate(4deg);
-
-  box-shadow:
-    0 8px 10px #000;
-}
-
-.exhaust::after{
-  content:"";
-
-  position:absolute;
-
-  right:-12px;
-  top:-2px;
-
-  width:24px;
-  height:22px;
-
-  border-radius:50%;
-
-  background:#050708;
-
-  border:2px solid #6e777b;
-}
-
-/* Front forks */
-
-.fork{
-  position:absolute;
-
-  right:100px;
-  bottom:105px;
-
-  width:12px;
-  height:150px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #555f64,
-      #d0d6d8,
-      #444b50
-    );
-
-  transform:
-    rotate(-12deg);
-
-  transform-origin:bottom;
-
-  border-radius:10px;
-}
-
-.fork2{
-  right:125px;
-}
-
-/* Handle */
-
-.handle{
-  position:absolute;
-
-  right:85px;
-  bottom:245px;
-
-  width:105px;
-  height:8px;
-
-  background:#080b0d;
-
-  transform:rotate(-8deg);
-
-  border-radius:5px;
-}
-
-/* Headlight */
-
-.headlight{
-  position:absolute;
-
-  right:77px;
-  bottom:207px;
-
-  width:43px;
-  height:43px;
-
-  border-radius:50%;
-
-  background:#dff7ff;
-
-  border:5px solid #343d42;
-
-  box-shadow:
-    0 0 15px #65d5ff,
-    0 0 60px #229cff;
-
-  transition:.1s;
-}
-
-/* Headlight beam */
-
-.headlight-beam{
-  position:absolute;
-
-  right:-100px;
-  bottom:185px;
-
-  width:260px;
-  height:100px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(100,210,255,.22),
-      transparent
-    );
-
-  clip-path:
-    polygon(
-      0 35%,
-      100% 0,
-      100% 100%,
-      0 65%
-    );
-
-  opacity:.45;
-}
-
-/* =========================
-   EXHAUST SMOKE
-========================= */
-
-.smoke{
-  position:absolute;
-
-  left:18%;
-  bottom:88px;
-
-  width:20px;
-  height:20px;
-
-  border-radius:50%;
-
-  background:
-    rgba(170,190,200,.15);
-
-  opacity:0;
-
-  filter:blur(5px);
-}
-
-.smoke.s1{
-  animation:
-    smoke 1.7s infinite;
-}
-
-.smoke.s2{
-  animation:
-    smoke 1.3s .4s infinite;
-}
-
-.smoke.s3{
-  animation:
-    smoke 1.9s .8s infinite;
-}
-
-@keyframes smoke{
-
-  0%{
     transform:
-      translate(0,0)
-      scale(.5);
+        translate(-50%,-50%);
 
-    opacity:0;
-  }
+    z-index:5;
 
-  30%{
-    opacity:.3;
-  }
+    display:flex;
 
-  100%{
-    transform:
-      translate(-80px,-100px)
-      scale(3);
+    justify-content:center;
 
-    opacity:0;
-  }
+    align-items:center;
+
+    overflow:visible;
 }
 
-/* =========================
+
+/*
+   Large cinematic glow behind bike.
+*/
+
+.bike-glow{
+    position:absolute;
+
+    left:50%;
+    bottom:25px;
+
+    width:82vw;
+    height:130px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0,105,255,.25),
+            transparent 70%
+        );
+
+    filter:blur(18px);
+
+    pointer-events:none;
+}
+
+
+/*
+   PHOTO FRAME
+
+   The uploaded image itself is used here.
+*/
+
+.photo-container{
+    position:relative;
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    border-radius:24px;
+}
+
+
+/*
+   REAL HUNTER PHOTO
+*/
+
+.bike-photo{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    /*
+      This crops some empty sky and black
+      borders while keeping the motorcycle
+      large and visible.
+    */
+
+    object-position:
+        50% 72%;
+
+    transform:
+        scale(1.18);
+
+    display:block;
+
+    user-select:none;
+
+    -webkit-user-drag:none;
+
+    pointer-events:none;
+
+    filter:
+        saturate(1.05)
+        contrast(1.04)
+        brightness(.82)
+        drop-shadow(
+            0 25px 25px
+            rgba(0,0,0,.8)
+        );
+
+    transform-origin:center center;
+
+    transition:
+        filter .2s ease;
+}
+
+
+/*
+   Cinematic dark gradient over photo.
+*/
+
+.photo-overlay{
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(2,6,13,.68),
+            transparent 28%,
+            transparent 60%,
+            rgba(1,5,10,.65)
+        ),
+        linear-gradient(
+            90deg,
+            rgba(2,7,14,.28),
+            transparent 35%,
+            transparent 65%,
+            rgba(2,7,14,.25)
+        );
+}
+
+
+/*
+   BLUE FLOOR REFLECTION
+*/
+
+.reflection{
+    position:absolute;
+
+    left:50%;
+    bottom:24px;
+
+    width:70%;
+
+    height:35px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(20,130,255,.32),
+            transparent 70%
+        );
+
+    filter:blur(12px);
+
+    pointer-events:none;
+}
+
+
+/* =====================================================
+   ACCELERATION EFFECT
+===================================================== */
+
+.bike-stage.revving
+.bike-photo{
+
+    /*
+      IMPORTANT:
+      Animation is on the IMAGE itself.
+      The stage positioning never changes.
+    */
+
+    animation:
+        engineShake .075s infinite;
+
+    filter:
+        saturate(1.10)
+        contrast(1.08)
+        brightness(1.02)
+        drop-shadow(
+            0 25px 25px
+            rgba(0,0,0,.85)
+        )
+        drop-shadow(
+            0 0 25px
+            rgba(0,115,255,.25)
+        );
+}
+
+@keyframes engineShake{
+
+    0%{
+        transform:
+            scale(1.18)
+            translateY(0)
+            rotate(0deg);
+    }
+
+    25%{
+        transform:
+            scale(1.18)
+            translateY(1px)
+            rotate(.12deg);
+    }
+
+    50%{
+        transform:
+            scale(1.18)
+            translateY(-1px)
+            rotate(-.12deg);
+    }
+
+    75%{
+        transform:
+            scale(1.18)
+            translateY(1px)
+            rotate(.08deg);
+    }
+
+    100%{
+        transform:
+            scale(1.18)
+            translateY(0)
+            rotate(0deg);
+    }
+}
+
+
+/* =====================================================
+   ENGINE LIGHT
+===================================================== */
+
+.engine-light{
+    position:absolute;
+
+    left:50%;
+    bottom:65px;
+
+    width:70px;
+    height:30px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,120,255,0);
+
+    filter:blur(16px);
+
+    pointer-events:none;
+}
+
+.garage.running
+.engine-light{
+
+    background:
+        rgba(0,125,255,.32);
+
+    animation:
+        lightPulse .18s infinite alternate;
+}
+
+@keyframes lightPulse{
+
+    from{
+        opacity:.35;
+        transform:
+            translateX(-50%)
+            scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateX(-50%)
+            scale(1.25);
+    }
+}
+
+
+/* =====================================================
    CONTROLS
-========================= */
+===================================================== */
 
 .controls{
-  position:absolute;
+    position:absolute;
 
-  bottom:22px;
-  left:50%;
+    z-index:30;
 
-  transform:translateX(-50%);
+    left:50%;
 
-  width:min(92%,430px);
+    /*
+      Button is intentionally raised
+      from the extreme bottom.
+    */
 
-  text-align:center;
+    bottom:25px;
 
-  z-index:30;
+    transform:
+        translateX(-50%);
+
+    width:min(390px,90vw);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
 }
+
+
+/* RPM */
 
 .rpm{
-  font-size:11px;
+    padding:7px 20px;
 
-  letter-spacing:4px;
+    margin-bottom:9px;
 
-  color:#7c8d9c;
+    border:
+        1px solid
+        rgba(90,170,255,.18);
 
-  margin-bottom:11px;
+    border-radius:20px;
 
-  text-shadow:
-    0 0 10px rgba(50,180,255,.25);
+    background:
+        rgba(2,8,16,.78);
+
+    backdrop-filter:
+        blur(12px);
+
+    color:#7c91aa;
+
+    font-size:9px;
+
+    letter-spacing:2px;
 }
 
-.rpm span{
-  color:#53c5ff;
+.rpm strong{
+    color:white;
+
+    font-size:15px;
+
+    margin-left:5px;
 }
+
+
+/* =====================================================
+   ACCELERATOR
+===================================================== */
 
 .accelerator{
-  width:100%;
-  height:60px;
 
-  border:
-    1px solid #268ed0;
+    width:min(340px,88vw);
 
-  background:
-    linear-gradient(
-      180deg,
-      #0b2438,
-      #06111c
-    );
+    height:64px;
 
-  color:#fff;
+    border-radius:18px;
 
-  border-radius:5px;
+    border:
+        1px solid
+        rgba(90,185,255,.58);
 
-  font-size:13px;
-  font-weight:bold;
+    background:
+        linear-gradient(
+            135deg,
+            #126fc9,
+            #052d60
+        );
 
-  letter-spacing:4px;
+    color:white;
 
-  box-shadow:
-    0 0 25px rgba(0,150,255,.2);
+    font-size:14px;
 
-  cursor:pointer;
+    font-weight:900;
 
-  user-select:none;
-  touch-action:none;
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    touch-action:none;
+
+    user-select:none;
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,80,180,.38),
+
+        inset 0 1px 0
+        rgba(255,255,255,.12);
+
+    transition:
+        transform .1s ease,
+        box-shadow .1s ease,
+        background .1s ease;
 }
 
-.accelerator:active{
-  background:
-    linear-gradient(
-      180deg,
-      #126a9c,
-      #07304d
-    );
+.accelerator span{
+    font-size:19px;
 
-  box-shadow:
-    0 0 45px rgba(0,170,255,.55);
+    margin-right:5px;
 }
 
-.hint{
-  font-size:7px;
+.accelerator.pressed{
 
-  color:#566876;
-
-  letter-spacing:3px;
-
-  margin-top:8px;
-}
-
-/* =========================
-   ENGINE SHAKE
-========================= */
-
-@keyframes bikeShake{
-
-  0%,100%{
     transform:
-      translate(0,0)
-      rotate(0);
-  }
+        scale(.96);
 
-  25%{
-    transform:
-      translate(2px,0)
-      rotate(.12deg);
-  }
+    background:
+        linear-gradient(
+            135deg,
+            #159cff,
+            #0752b8
+        );
 
-  50%{
-    transform:
-      translate(-2px,1px)
-      rotate(-.12deg);
-  }
+    box-shadow:
+        0 0 30px
+        rgba(20,145,255,.7),
 
-  75%{
-    transform:
-      translate(1px,-1px)
-      rotate(.08deg);
-  }
+        0 10px 35px
+        rgba(0,100,255,.45);
 }
 
-/* =========================
-   ENTRY ANIMATION
-========================= */
 
-@keyframes entryAppear{
-
-  from{
-    opacity:0;
-    transform:translateY(25px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:600px){
 
-  .bike-area{
+    .header{
+        top:14px;
+        left:15px;
+        right:15px;
+    }
 
-    width:760px;
-    height:300px;
+    .logo{
+        font-size:10px;
+        letter-spacing:3px;
+    }
 
-    left:50%;
-    top:44%;
+    .rider{
+        font-size:7px;
+    }
 
-    transform:
-      translate(-50%,-50%)
-      scale(.62);
+    .rider strong{
+        font-size:10px;
+    }
 
-    transform-origin:center center;
-  }
 
-  .bike{
-    width:82%;
-    height:240px;
-    left:9%;
-    bottom:30px;
-  }
+    /*
+       REAL BIKE PHOTO IS MOVED UP.
+    */
 
-  .header{
-    top:16px;
-    left:18px;
-    right:18px;
-  }
+    .bike-stage{
 
-  .brand{
-    font-size:9px;
-    letter-spacing:4px;
-  }
+        top:39%;
 
-  .rider small{
-    font-size:7px;
-  }
+        width:100vw;
 
-  .rider strong{
-    font-size:13px;
-  }
+        height:360px;
+    }
 
-  .controls{
-    bottom:17px;
-    width:90%;
-  }
 
-  .rpm{
-    font-size:10px;
-    margin-bottom:10px;
-  }
+    .photo-container{
 
-  .accelerator{
-    height:58px;
-    font-size:12px;
-    letter-spacing:4px;
-  }
+        border-radius:18px;
+    }
 
-  .hint{
-    font-size:7px;
-  }
 
-  .floor{
-    height:35%;
-  }
+    .bike-photo{
+
+        transform:
+            scale(1.28);
+
+        object-position:
+            50% 73%;
+    }
+
+
+    .bike-stage.revving
+    .bike-photo{
+
+        animation:
+            engineShakeMobile .075s infinite;
+    }
+
+    @keyframes engineShakeMobile{
+
+        0%,100%{
+            transform:
+                scale(1.28)
+                translateY(0)
+                rotate(0);
+        }
+
+        25%{
+            transform:
+                scale(1.28)
+                translateY(1px)
+                rotate(.12deg);
+        }
+
+        50%{
+            transform:
+                scale(1.28)
+                translateY(-1px)
+                rotate(-.12deg);
+        }
+
+        75%{
+            transform:
+                scale(1.28)
+                translateY(1px)
+                rotate(.08deg);
+        }
+    }
+
+
+    /*
+       Accelerator raised and easy
+       for the thumb to reach.
+    */
+
+    .controls{
+
+        bottom:21px;
+
+        width:90vw;
+    }
+
+    .rpm{
+
+        margin-bottom:8px;
+
+        padding:6px 17px;
+    }
+
+    .accelerator{
+
+        width:min(345px,90vw);
+
+        height:63px;
+
+        border-radius:17px;
+    }
 }
 
-/* Extra small phones */
 
-@media(max-width:380px){
+/* =====================================================
+   SMALL HEIGHT PHONES
+===================================================== */
 
-  .bike-area{
-    top:42%;
-    transform:
-      translate(-50%,-50%)
-      scale(.55);
-  }
+@media(max-height:700px){
 
-  .controls{
-    width:92%;
-  }
+    .bike-stage{
 
-  .accelerator{
-    font-size:11px;
-    letter-spacing:3px;
-  }
+        top:36%;
+
+        height:315px;
+    }
+
+    .bike-photo{
+
+        transform:
+            scale(1.18);
+
+        object-position:
+            50% 73%;
+    }
+
+    .controls{
+
+        bottom:12px;
+    }
+
+    .accelerator{
+
+        height:58px;
+    }
+
+    .rpm{
+
+        margin-bottom:5px;
+    }
 }
 
-/* Landscape phones */
 
-@media(max-height:600px) and (orientation:landscape){
+/* =====================================================
+   DESKTOP
+===================================================== */
 
-  .bike-area{
-    top:46%;
-    transform:
-      translate(-50%,-50%)
-      scale(.58);
-  }
+@media(min-width:800px){
 
-  .controls{
-    bottom:8px;
-  }
+    .bike-stage{
 
-  .accelerator{
-    height:45px;
-  }
+        width:min(950px,95vw);
 
-  .rpm{
-    margin-bottom:5px;
-  }
+        height:500px;
+
+        top:44%;
+    }
+
+    .bike-photo{
+
+        transform:
+            scale(1.15);
+
+        object-position:
+            50% 73%;
+    }
+
+    .controls{
+
+        bottom:28px;
+    }
 }
 
 </style>
 </head>
 
+
 <body>
 
-<!-- =================================
+
+<!-- =====================================================
      ENTRY SCREEN
-================================= -->
+===================================================== -->
 
-<section id="entry" class="screen">
+<section
+    id="entry"
+    class="entry">
 
-  <div class="entry-box">
+    <div class="entry-card">
 
-    <div class="logo">
-      ROYAL GARAGE EXPERIENCE
+        <div class="small-logo">
+            PERSONAL GARAGE
+        </div>
+
+        <div class="entry-title">
+            HUNTER
+        </div>
+
+        <div class="entry-subtitle">
+            GARAGE 350
+        </div>
+
+        <div class="entry-description">
+            ENTER YOUR NAME TO ENTER
+        </div>
+
+        <input
+            id="nameInput"
+            class="name-input"
+            type="text"
+            maxlength="18"
+            autocomplete="off"
+            placeholder="YOUR NAME"
+        >
+
+        <button
+            id="enterButton"
+            class="enter-button">
+
+            ENTER GARAGE
+
+        </button>
+
     </div>
-
-    <h1>
-      HUNTER 350
-    </h1>
-
-    <h2>
-      YOUR GARAGE
-    </h2>
-
-    <p>
-      ENTER YOUR NAME TO ENTER
-    </p>
-
-    <input
-      id="nameInput"
-      type="text"
-      maxlength="18"
-      autocomplete="off"
-      placeholder="YOUR NAME"
-    >
-
-    <button
-      class="enter"
-      onclick="enterGarage()"
-    >
-      ENTER GARAGE →
-    </button>
-
-  </div>
 
 </section>
 
 
-<!-- =================================
-     GARAGE SCREEN
-================================= -->
 
-<section id="garage" class="screen">
+<!-- =====================================================
+     GARAGE
+===================================================== -->
 
-  <div class="garage">
-
-    <div class="ceiling"></div>
-
-    <div class="light l1"></div>
-    <div class="light l2"></div>
-    <div class="light l3"></div>
+<section
+    id="garage"
+    class="garage">
 
     <div class="wall-lines"></div>
+
+
+    <div class="light-row">
+
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+
+    </div>
+
 
     <div class="floor"></div>
 
 
     <!-- HEADER -->
 
-    <div class="header">
+    <header class="header">
 
-      <div class="brand">
-        HUNTER / GARAGE 350
-      </div>
+        <div class="logo">
 
-      <div class="rider">
+            HUNTER
+            <span>GARAGE 350</span>
 
-        <small>
-          RIDER
-        </small>
+        </div>
 
-        <strong id="riderName">
-          RIDER
-        </strong>
+        <div class="rider">
 
-      </div>
+            RIDER
 
-    </div>
+            <strong id="riderName">
+                RIDER
+            </strong>
 
+        </div>
 
-    <!-- =================================
-         BIKE
-    ================================= -->
-
-    <div
-      id="bikeArea"
-      class="bike-area"
-    >
-
-      <div class="bike">
-
-        <!-- Wheels -->
-
-        <div class="wheel rear"></div>
-        <div class="wheel front"></div>
+    </header>
 
 
-        <!-- Frame -->
 
-        <div class="frame">
+    <!-- =================================================
+         REAL BIKE
+    ================================================= -->
 
-          <div class="tube t1"></div>
-          <div class="tube t2"></div>
-          <div class="tube t3"></div>
-          <div class="tube t4"></div>
+    <main
+        id="bikeStage"
+        class="bike-stage">
+
+        <div class="bike-glow"></div>
+
+
+        <div class="photo-container">
+
+            <!--
+              YOUR UPLOADED PHOTO
+
+              GitHub file name MUST be:
+
+              hunter350.jpg
+            -->
+
+            <img
+                id="bikePhoto"
+                class="bike-photo"
+                src="hunter350.jpg"
+                alt="Hunter 350"
+                draggable="false"
+            >
+
+
+            <div class="photo-overlay"></div>
 
         </div>
 
 
-        <!-- Tank -->
+        <div class="reflection"></div>
 
-        <div class="tank"></div>
+        <div class="engine-light"></div>
 
-
-        <!-- Seat -->
-
-        <div class="seat"></div>
+    </main>
 
 
-        <!-- Engine -->
 
-        <div class="engine"></div>
-
-
-        <!-- Exhaust -->
-
-        <div class="exhaust"></div>
-
-
-        <!-- Front suspension -->
-
-        <div class="fork"></div>
-        <div class="fork fork2"></div>
-
-
-        <!-- Handle -->
-
-        <div class="handle"></div>
-
-
-        <!-- Headlight -->
-
-        <div class="headlight"></div>
-
-        <div class="headlight-beam"></div>
-
-      </div>
-
-
-      <!-- Smoke -->
-
-      <div class="smoke s1"></div>
-      <div class="smoke s2"></div>
-      <div class="smoke s3"></div>
-
-    </div>
-
-
-    <!-- =================================
+    <!-- =================================================
          CONTROLS
-    ================================= -->
+    ================================================= -->
 
     <div class="controls">
 
-      <div class="rpm">
+        <div class="rpm">
 
-        ENGINE
+            ENGINE
 
-        <span id="rpm">
-          IDLE • 1000 RPM
-        </span>
+            <strong id="rpm">
+                1000 RPM
+            </strong>
 
-      </div>
-
-
-      <button
-        id="accelerator"
-        class="accelerator"
-      >
-        ⚡ HOLD TO ACCELERATE
-      </button>
+        </div>
 
 
-      <div class="hint">
-        HOLD THE BUTTON • FEEL THE MACHINE
-      </div>
+        <button
+            id="accelerator"
+            class="accelerator"
+            type="button">
+
+            <span>⚡</span>
+
+            ACCELERATE
+
+        </button>
 
     </div>
-
-  </div>
 
 </section>
 
 
+
 <script>
 
-/* =================================
+/* =====================================================
    ELEMENTS
-================================= */
+===================================================== */
 
 const entry =
-  document.getElementById("entry");
+    document.getElementById("entry");
 
 const garage =
-  document.getElementById("garage");
+    document.getElementById("garage");
 
 const nameInput =
-  document.getElementById("nameInput");
+    document.getElementById("nameInput");
+
+const enterButton =
+    document.getElementById("enterButton");
 
 const riderName =
-  document.getElementById("riderName");
+    document.getElementById("riderName");
 
-const rpmText =
-  document.getElementById("rpm");
+const bikeStage =
+    document.getElementById("bikeStage");
 
-const bikeArea =
-  document.getElementById("bikeArea");
+const bikePhoto =
+    document.getElementById("bikePhoto");
 
 const accelerator =
-  document.getElementById("accelerator");
+    document.getElementById("accelerator");
 
-const headlight =
-  document.querySelector(".headlight");
-
-
-/* =================================
-   VARIABLES
-================================= */
-
-let rpm = 1000;
-
-let accelerating = false;
-
-let audioCtx = null;
-
-let oscillator = null;
-
-let gain = null;
+const rpm =
+    document.getElementById("rpm");
 
 
-/* =================================
+/* =====================================================
    ENTER GARAGE
-================================= */
+===================================================== */
 
 function enterGarage(){
 
-  let name =
-    nameInput.value.trim();
+    let name =
+        nameInput.value.trim();
 
-  if(!name){
-    name = "RIDER";
-  }
+    if(name === ""){
+        name = "RIDER";
+    }
 
-  riderName.textContent =
-    name.toUpperCase();
+    name =
+        name
+        .substring(0,18)
+        .toUpperCase();
 
-  entry.style.opacity = "0";
+    riderName.textContent =
+        name;
 
-  entry.style.transition =
-    "opacity .35s ease";
+    entry.classList.add("hide");
 
-  setTimeout(function(){
+    setTimeout(()=>{
 
-    entry.style.display = "none";
+        garage.classList.add("show");
 
-    garage.style.display = "block";
-
-  },350);
+    },300);
 }
 
 
-/* =================================
-   ENTER KEY
-================================= */
-
-nameInput.addEventListener(
-  "keydown",
-  function(e){
-
-    if(e.key === "Enter"){
-      enterGarage();
-    }
-
-  }
+enterButton.addEventListener(
+    "click",
+    enterGarage
 );
 
 
-/* =================================
-   ENGINE AUDIO
-================================= */
+nameInput.addEventListener(
+    "keydown",
+    function(event){
 
-function startEngine(){
+        if(event.key === "Enter"){
 
-  if(!audioCtx){
+            enterGarage();
 
-    audioCtx =
-      new (
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ENGINE
+===================================================== */
+
+let audioContext = null;
+
+let oscillator = null;
+
+let gainNode = null;
+
+let accelerating = false;
+
+let currentRPM = 1000;
+
+let targetRPM = 1000;
+
+
+/* =====================================================
+   CREATE ENGINE AUDIO
+===================================================== */
+
+function createEngine(){
+
+    if(audioContext){
+        return;
+    }
+
+    audioContext =
+        new (
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
 
     oscillator =
-      audioCtx.createOscillator();
+        audioContext.createOscillator();
 
-    gain =
-      audioCtx.createGain();
+    gainNode =
+        audioContext.createGain();
 
 
     oscillator.type =
-      "sawtooth";
+        "sawtooth";
+
 
     oscillator.frequency.value =
-      55;
-
-    gain.gain.value =
-      0.0001;
+        55;
 
 
-    oscillator.connect(gain);
+    gainNode.gain.value =
+        0.0001;
 
-    gain.connect(
-      audioCtx.destination
+
+    oscillator.connect(
+        gainNode
     );
 
+    gainNode.connect(
+        audioContext.destination
+    );
+
+
     oscillator.start();
-  }
-
-
-  if(
-    audioCtx.state ===
-    "suspended"
-  ){
-
-    audioCtx.resume();
-
-  }
-
-
-  gain.gain.cancelScheduledValues(
-    audioCtx.currentTime
-  );
-
-  gain.gain.linearRampToValueAtTime(
-    0.055,
-    audioCtx.currentTime + .08
-  );
-
-
-  accelerating = true;
 }
 
 
-/* =================================
-   STOP ENGINE
-================================= */
+/* =====================================================
+   START REV
+===================================================== */
+
+function startEngine(){
+
+    if(accelerating){
+        return;
+    }
+
+    accelerating = true;
+
+    targetRPM = 7200;
+
+
+    accelerator.classList.add(
+        "pressed"
+    );
+
+
+    bikeStage.classList.add(
+        "revving"
+    );
+
+
+    garage.classList.add(
+        "running"
+    );
+
+
+    createEngine();
+
+
+    if(
+        audioContext &&
+        audioContext.state === "suspended"
+    ){
+
+        audioContext.resume();
+
+    }
+
+
+    if(gainNode){
+
+        gainNode.gain.cancelScheduledValues(
+            audioContext.currentTime
+        );
+
+        gainNode.gain.setTargetAtTime(
+            0.045,
+            audioContext.currentTime,
+            .035
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   STOP REV
+===================================================== */
 
 function stopEngine(){
 
-  accelerating = false;
+    if(!accelerating){
+        return;
+    }
 
-  if(gain){
+    accelerating = false;
 
-    gain.gain.cancelScheduledValues(
-      audioCtx.currentTime
+    targetRPM = 1000;
+
+
+    accelerator.classList.remove(
+        "pressed"
     );
 
-    gain.gain.linearRampToValueAtTime(
-      0.0001,
-      audioCtx.currentTime + .25
+
+    bikeStage.classList.remove(
+        "revving"
     );
 
-  }
+
+    garage.classList.remove(
+        "running"
+    );
+
+
+    if(gainNode){
+
+        gainNode.gain.cancelScheduledValues(
+            audioContext.currentTime
+        );
+
+        gainNode.gain.setTargetAtTime(
+            0.0001,
+            audioContext.currentTime,
+            .08
+        );
+
+    }
+
 }
 
 
-/* =================================
-   ENGINE LOOP
-================================= */
+/* =====================================================
+   RPM LOOP
+===================================================== */
 
-function updateEngine(){
+function updateRPM(){
 
-  if(accelerating){
+    if(currentRPM < targetRPM){
 
-    rpm +=
-      (9000 - rpm) * .035;
+        currentRPM +=
+            (targetRPM-currentRPM)
+            * .14;
 
-  }else{
-
-    rpm +=
-      (1000 - rpm) * .08;
-
-  }
+    }
 
 
-  rpm =
-    Math.round(rpm);
+    if(currentRPM > targetRPM){
+
+        currentRPM -=
+            (currentRPM-targetRPM)
+            * .12;
+
+    }
 
 
-  if(accelerating){
-
-    rpmText.textContent =
-      "REV • " +
-      rpm +
-      " RPM";
-
-  }else{
-
-    rpmText.textContent =
-      "IDLE • " +
-      rpm +
-      " RPM";
-
-  }
+    currentRPM =
+        Math.round(currentRPM / 10) * 10;
 
 
-  /* Engine sound pitch */
+    rpm.textContent =
+        currentRPM.toLocaleString()
+        + " RPM";
 
-  if(
-    oscillator &&
-    audioCtx
-  ){
 
-    oscillator.frequency.setTargetAtTime(
+    if(oscillator){
 
-      45 + rpm / 55,
+        oscillator.frequency.value =
+            45 +
+            currentRPM / 48;
 
-      audioCtx.currentTime,
+    }
 
-      .03
 
+    requestAnimationFrame(
+        updateRPM
     );
-
-  }
-
-
-  /* Bike vibration */
-
-  if(accelerating){
-
-    bikeArea.style.animation =
-      "bikeShake .08s infinite";
-
-  }else{
-
-    bikeArea.style.animation =
-      "none";
-
-  }
-
-
-  /* Headlight */
-
-  if(accelerating){
-
-    headlight.style.boxShadow =
-      "0 0 25px #8ce5ff, 0 0 100px #249fff";
-
-  }else{
-
-    headlight.style.boxShadow =
-      "0 0 15px #65d5ff, 0 0 60px #229cff";
-
-  }
-
-
-  requestAnimationFrame(
-    updateEngine
-  );
 }
 
 
-/* Start loop */
-
-requestAnimationFrame(
-  updateEngine
-);
+updateRPM();
 
 
-/* =================================
+/* =====================================================
    ACCELERATOR
-================================= */
+===================================================== */
 
 accelerator.addEventListener(
-  "pointerdown",
-  function(e){
+    "pointerdown",
+    function(event){
 
-    e.preventDefault();
+        event.preventDefault();
 
-    startEngine();
+        startEngine();
 
-  }
+    },
+    {passive:false}
 );
 
 
-accelerator.addEventListener(
-  "pointerup",
-  function(){
+/*
+   Release finger anywhere.
+*/
 
-    stopEngine();
+window.addEventListener(
+    "pointerup",
+    function(){
 
-  }
-);
-
-
-accelerator.addEventListener(
-  "pointercancel",
-  function(){
-
-    stopEngine();
-
-  }
-);
-
-
-accelerator.addEventListener(
-  "pointerleave",
-  function(){
-
-    if(accelerating){
-
-      stopEngine();
+        stopEngine();
 
     }
-
-  }
 );
 
 
-/* =================================
-   SAFETY
-   Stop engine if finger leaves page
-================================= */
+window.addEventListener(
+    "pointercancel",
+    function(){
 
-document.addEventListener(
-  "visibilitychange",
-  function(){
-
-    if(
-      document.hidden &&
-      accelerating
-    ){
-
-      stopEngine();
+        stopEngine();
 
     }
+);
 
-  }
+
+/*
+   Prevent long-press menu.
+*/
+
+accelerator.addEventListener(
+    "contextmenu",
+    function(event){
+
+        event.preventDefault();
+
+    }
+);
+
+
+/* =====================================================
+   IMAGE CHECK
+===================================================== */
+
+bikePhoto.addEventListener(
+    "error",
+    function(){
+
+        console.log(
+            "hunter350.jpg not found."
+        );
+
+    }
 );
 
 </script>
